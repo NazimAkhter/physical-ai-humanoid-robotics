@@ -1,0 +1,363 @@
+# API Contracts: ROS 2 Nervous System Module
+
+## Overview
+This document defines the API contracts for the RAG (Retrieval Augmented Generation) chatbot that will be integrated with the Docusaurus-based documentation for the ROS 2 Nervous System module.
+
+## Base URL
+`/api/v1`
+
+## Authentication
+All API endpoints require authentication via Bearer token in the Authorization header.
+
+## Content Types
+- Request: `application/json`
+- Response: `application/json`
+
+## Common Error Responses
+
+### 400 Bad Request
+```json
+{
+  "error": "Bad Request",
+  "message": "Description of the error",
+  "code": "INVALID_INPUT"
+}
+```
+
+### 401 Unauthorized
+```json
+{
+  "error": "Unauthorized",
+  "message": "Authentication token is missing or invalid",
+  "code": "AUTH_REQUIRED"
+}
+```
+
+### 404 Not Found
+```json
+{
+  "error": "Not Found",
+  "message": "The requested resource does not exist",
+  "code": "RESOURCE_NOT_FOUND"
+}
+```
+
+### 500 Internal Server Error
+```json
+{
+  "error": "Internal Server Error",
+  "message": "An unexpected error occurred",
+  "code": "INTERNAL_ERROR"
+}
+```
+
+## Endpoints
+
+### 1. Query Documentation (RAG Search)
+
+#### POST /rag/query
+Submit a query to search the ROS 2 Nervous System documentation and get AI-generated responses.
+
+**Request Body:**
+```json
+{
+  "query": "string (required) - The user's question about ROS 2 concepts",
+  "context": {
+    "module": "string (optional) - The module to search within (e.g., '001-ros2-nervous-system')",
+    "chapter": "string (optional) - The specific chapter to focus on",
+    "selected_text": "string (optional) - Text selected by user in the documentation"
+  },
+  "conversation_id": "string (optional) - For maintaining conversation context"
+}
+```
+
+**Request Example:**
+```json
+{
+  "query": "Explain how ROS 2 nodes communicate with each other",
+  "context": {
+    "module": "001-ros2-nervous-system",
+    "chapter": "chapter-1-ros2-architecture"
+  },
+  "conversation_id": "conv_abc123"
+}
+```
+
+**Response:**
+```json
+{
+  "response": "string - AI-generated response to the query",
+  "sources": [
+    {
+      "title": "string - Title of the source document",
+      "url": "string - URL to the source in documentation",
+      "section": "string - Specific section referenced",
+      "relevance_score": "number - Relevance score from 0-1"
+    }
+  ],
+  "conversation_id": "string - ID for the conversation thread",
+  "timestamp": "string - ISO 8601 timestamp"
+}
+```
+
+**Response Example:**
+```json
+{
+  "response": "ROS 2 nodes communicate through a publish-subscribe pattern using Topics, and through request-reply using Services...",
+  "sources": [
+    {
+      "title": "ROS 2 Architecture",
+      "url": "/docs/modules/001-ros2-nervous-system/chapter-1-ros2-architecture",
+      "section": "Communication Patterns",
+      "relevance_score": 0.95
+    }
+  ],
+  "conversation_id": "conv_abc123",
+  "timestamp": "2025-12-07T10:30:00Z"
+}
+```
+
+**Status Codes:**
+- 200: Success
+- 400: Invalid query or missing required fields
+- 401: Authentication required
+- 500: Internal server error during processing
+
+### 2. Get Conversation History
+
+#### GET /conversations/{conversation_id}
+Retrieve the history of a specific conversation.
+
+**Path Parameters:**
+- `conversation_id`: string - The ID of the conversation to retrieve
+
+**Response:**
+```json
+{
+  "conversation_id": "string",
+  "created_at": "string - ISO 8601 timestamp",
+  "updated_at": "string - ISO 8601 timestamp",
+  "messages": [
+    {
+      "id": "string",
+      "role": "string - 'user' or 'assistant'",
+      "content": "string - The message content",
+      "timestamp": "string - ISO 8601 timestamp",
+      "sources": [
+        {
+          "title": "string",
+          "url": "string",
+          "section": "string",
+          "relevance_score": "number"
+        }
+      ]
+    }
+  ]
+}
+```
+
+**Status Codes:**
+- 200: Success
+- 401: Authentication required
+- 404: Conversation not found
+- 500: Internal server error
+
+### 3. Create New Conversation
+
+#### POST /conversations
+Start a new conversation with the RAG chatbot.
+
+**Request Body:**
+```json
+{
+  "initial_query": "string (optional) - The first query to start the conversation",
+  "context": {
+    "module": "string (optional) - The module context for the conversation",
+    "chapter": "string (optional) - The chapter context for the conversation"
+  }
+}
+```
+
+**Response:**
+```json
+{
+  "conversation_id": "string - The ID of the new conversation",
+  "created_at": "string - ISO 8601 timestamp",
+  "status": "string - 'active'"
+}
+```
+
+**Status Codes:**
+- 201: Conversation created successfully
+- 400: Invalid request body
+- 401: Authentication required
+- 500: Internal server error
+
+### 4. List Conversations
+
+#### GET /conversations
+Get a list of recent conversations for the authenticated user.
+
+**Query Parameters:**
+- `limit`: number (optional, default: 10) - Maximum number of conversations to return
+- `offset`: number (optional, default: 0) - Number of conversations to skip
+
+**Response:**
+```json
+{
+  "conversations": [
+    {
+      "conversation_id": "string",
+      "title": "string - Auto-generated title based on first query",
+      "created_at": "string - ISO 8601 timestamp",
+      "updated_at": "string - ISO 8601 timestamp",
+      "last_message": "string - Preview of the last message",
+      "module_context": "string - Module this conversation relates to"
+    }
+  ],
+  "total_count": "number",
+  "limit": "number",
+  "offset": "number"
+}
+```
+
+**Status Codes:**
+- 200: Success
+- 401: Authentication required
+- 500: Internal server error
+
+### 5. Delete Conversation
+
+#### DELETE /conversations/{conversation_id}
+Delete a specific conversation and its history.
+
+**Path Parameters:**
+- `conversation_id`: string - The ID of the conversation to delete
+
+**Response:**
+```json
+{
+  "message": "string - Confirmation message",
+  "conversation_id": "string"
+}
+```
+
+**Status Codes:**
+- 200: Conversation deleted successfully
+- 401: Authentication required
+- 404: Conversation not found
+- 500: Internal server error
+
+### 6. Validate URDF Content
+
+#### POST /validation/urdf
+Validate a URDF XML string to ensure it follows proper syntax and structure.
+
+**Request Body:**
+```json
+{
+  "urdf_content": "string (required) - The URDF XML content to validate",
+  "robot_name": "string (optional) - Name to assign to the robot"
+}
+```
+
+**Response:**
+```json
+{
+  "valid": "boolean - Whether the URDF is valid",
+  "errors": [
+    {
+      "type": "string - Type of error (e.g., 'xml_syntax', 'semantic')",
+      "message": "string - Description of the error",
+      "line": "number - Line number where error occurs (if applicable)"
+    }
+  ],
+  "warnings": [
+    {
+      "type": "string - Type of warning",
+      "message": "string - Description of the warning"
+    }
+  ],
+  "robot_info": {
+    "name": "string - Robot name",
+    "link_count": "number - Number of links",
+    "joint_count": "number - Number of joints"
+  }
+}
+```
+
+**Status Codes:**
+- 200: Validation completed (regardless of whether URDF is valid)
+- 400: Invalid request body
+- 401: Authentication required
+- 500: Internal server error during validation
+
+### 7. Get Documentation Content for RAG Indexing
+
+#### GET /docs/content
+Retrieve structured documentation content for RAG indexing.
+
+**Query Parameters:**
+- `module`: string (optional) - Specific module to retrieve content from
+- `format`: string (optional, default: 'json') - Output format ('json' or 'text')
+
+**Response:**
+```json
+{
+  "module": "string - Module identifier",
+  "content": [
+    {
+      "id": "string - Unique content ID",
+      "title": "string - Content title",
+      "url": "string - Relative URL in documentation",
+      "content": "string - Content text for indexing",
+      "headers": [
+        {
+          "level": "number - Header level (1-6)",
+          "text": "string - Header text",
+          "id": "string - Anchor ID"
+        }
+      ],
+      "metadata": {
+        "module": "string",
+        "chapter": "string",
+        "section": "string"
+      }
+    }
+  ]
+}
+```
+
+**Status Codes:**
+- 200: Content retrieved successfully
+- 400: Invalid parameters
+- 401: Authentication required
+- 500: Internal server error
+
+## Rate Limits
+- Query endpoints: 100 requests per hour per user
+- Conversation endpoints: 1000 requests per hour per user
+- Validation endpoints: 50 requests per hour per user
+
+## Data Models
+
+### Message
+- id: string (UUID)
+- conversation_id: string (UUID)
+- role: enum ('user', 'assistant')
+- content: string
+- timestamp: string (ISO 8601)
+- sources: array of Source objects
+
+### Source
+- title: string
+- url: string
+- section: string
+- relevance_score: number (0-1)
+
+### Conversation
+- conversation_id: string (UUID)
+- created_at: string (ISO 8601)
+- updated_at: string (ISO 8601)
+- messages: array of Message objects
+- context: object with module/chapter info

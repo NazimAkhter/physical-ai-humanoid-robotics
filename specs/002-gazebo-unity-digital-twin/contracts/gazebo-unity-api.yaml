@@ -1,0 +1,361 @@
+# API Contracts: Gazebo Unity Digital Twin Module
+
+## Overview
+This document defines the API contracts for the services that support the Gazebo Unity Digital Twin educational module. These APIs will support simulation visualization, asset management, and integration with the RAG chatbot system.
+
+## Base URL
+`/api/v1`
+
+## Authentication
+All API endpoints require authentication via Bearer token in the Authorization header, except for public documentation content.
+
+## Content Types
+- Request: `application/json`
+- Response: `application/json`
+
+## Common Error Responses
+
+### 400 Bad Request
+```json
+{
+  "error": "Bad Request",
+  "message": "Description of the error",
+  "code": "INVALID_INPUT"
+}
+```
+
+### 401 Unauthorized
+```json
+{
+  "error": "Unauthorized",
+  "message": "Authentication token is missing or invalid",
+  "code": "AUTH_REQUIRED"
+}
+```
+
+### 404 Not Found
+```json
+{
+  "error": "Not Found",
+  "message": "The requested resource does not exist",
+  "code": "RESOURCE_NOT_FOUND"
+}
+```
+
+### 500 Internal Server Error
+```json
+{
+  "error": "Internal Server Error",
+  "message": "An unexpected error occurred",
+  "code": "INTERNAL_ERROR"
+}
+```
+
+## Endpoints
+
+### 1. Gazebo Simulation Data
+
+#### GET /simulations/{simulation_id}/state
+Retrieve the current state of a Gazebo simulation for visualization purposes.
+
+**Path Parameters:**
+- `simulation_id`: string - The ID of the simulation to retrieve state for
+
+**Query Parameters:**
+- `format`: string (optional, default: 'json') - Output format ('json', 'protobuf', 'xml')
+- `timestamp`: number (optional) - Specific timestamp to retrieve (for playback)
+
+**Response:**
+```json
+{
+  "simulation_id": "string",
+  "timestamp": "number - Unix timestamp",
+  "objects": [
+    {
+      "id": "string - Object identifier",
+      "name": "string - Object name",
+      "type": "string - Object type",
+      "position": {
+        "x": "number",
+        "y": "number",
+        "z": "number"
+      },
+      "orientation": {
+        "w": "number",
+        "x": "number",
+        "y": "number",
+        "z": "number"
+      },
+      "velocity": {
+        "linear": {"x": "number", "y": "number", "z": "number"},
+        "angular": {"x": "number", "y": "number", "z": "number"}
+      }
+    }
+  ],
+  "sensors": [
+    {
+      "id": "string - Sensor identifier",
+      "type": "string - Sensor type (LiDAR, Camera, IMU, etc.)",
+      "data": "any - Sensor data in appropriate format",
+      "timestamp": "number - Unix timestamp"
+    }
+  ],
+  "physics": {
+    "gravity": {"x": "number", "y": "number", "z": "number"},
+    "time_step": "number",
+    "real_time_factor": "number"
+  }
+}
+```
+
+**Status Codes:**
+- 200: Success
+- 401: Authentication required
+- 404: Simulation not found
+- 500: Internal server error
+
+### 2. Unity Visualization Assets
+
+#### GET /unity/assets
+Retrieve available Unity visualization assets for the digital twin module.
+
+**Query Parameters:**
+- `category`: string (optional) - Filter by asset category (models, materials, animations, prefabs)
+- `simulation_type`: string (optional) - Filter by simulation type compatibility
+- `quality`: string (optional) - Filter by quality level (low, medium, high)
+
+**Response:**
+```json
+{
+  "assets": [
+    {
+      "id": "string",
+      "name": "string",
+      "category": "string",
+      "type": "string",
+      "file_path": "string",
+      "size_mb": "number",
+      "quality": "string",
+      "compatible_simulations": ["string"],
+      "thumbnail_url": "string",
+      "description": "string"
+    }
+  ],
+  "total_count": "number",
+  "categories": ["string"]
+}
+```
+
+**Status Codes:**
+- 200: Success
+- 401: Authentication required
+- 500: Internal server error
+
+### 3. Digital Twin Synchronization
+
+#### POST /digital-twin/sync
+Synchronize state between Gazebo simulation and Unity visualization.
+
+**Request Body:**
+```json
+{
+  "gazebo_simulation_id": "string",
+  "unity_visualization_id": "string",
+  "sync_mode": "string - 'real-time', 'batch', 'manual'",
+  "update_rate_hz": "number - How many times per second to sync",
+  "data_flow_direction": "string - 'gazebo-to-unity', 'bidirectional'"
+}
+```
+
+**Response:**
+```json
+{
+  "sync_id": "string",
+  "status": "string - 'active', 'paused', 'error'",
+  "gazebo_simulation_id": "string",
+  "unity_visualization_id": "string",
+  "sync_mode": "string",
+  "update_rate_hz": "number",
+  "data_flow_direction": "string",
+  "created_at": "string - ISO 8601 timestamp",
+  "last_sync": "string - ISO 8601 timestamp"
+}
+```
+
+**Status Codes:**
+- 201: Synchronization created successfully
+- 400: Invalid request parameters
+- 401: Authentication required
+- 500: Internal server error
+
+### 4. Sensor Data Simulation
+
+#### GET /sensors/{sensor_id}/data
+Retrieve simulated sensor data with customizable noise parameters.
+
+**Path Parameters:**
+- `sensor_id`: string - The ID of the sensor to retrieve data for
+
+**Query Parameters:**
+- `duration`: number (optional, default: 1000) - Duration in milliseconds
+- `noise_params`: string (optional) - JSON string of noise parameters to override defaults
+
+**Response:**
+```json
+{
+  "sensor_id": "string",
+  "sensor_type": "string - LiDAR, DepthCamera, IMU, etc.",
+  "data_stream": [
+    {
+      "timestamp": "number - Unix timestamp",
+      "data": "any - Sensor-specific data format",
+      "noise_applied": "object - Noise parameters used"
+    }
+  ],
+  "metadata": {
+    "sample_rate": "number",
+    "data_format": "string",
+    "noise_model": "string"
+  }
+}
+```
+
+**Status Codes:**
+- 200: Success
+- 401: Authentication required
+- 404: Sensor not found
+- 500: Internal server error
+
+### 5. Environment Configuration
+
+#### GET /environments/{env_id}/config
+Retrieve configuration for a simulation environment with customizable complexity.
+
+**Path Parameters:**
+- `env_id`: string - The ID of the environment to retrieve
+
+**Query Parameters:**
+- `complexity`: string (optional) - Override default complexity (basic, intermediate, advanced, customizable)
+
+**Response:**
+```json
+{
+  "env_id": "string",
+  "name": "string",
+  "complexity_level": "string",
+  "world_file": "string - SDF content",
+  "objects": [
+    {
+      "name": "string",
+      "model": "string",
+      "position": {"x": "number", "y": "number", "z": "number"},
+      "orientation": {"w": "number", "x": "number", "y": "number", "z": "number"}
+    }
+  ],
+  "lighting": {
+    "ambient": {"r": "number", "g": "number", "b": "number"},
+    "directional": {
+      "direction": {"x": "number", "y": "number", "z": "number"},
+      "color": {"r": "number", "g": "number", "b": "number"}
+    }
+  },
+  "physics": {
+    "gravity": {"x": "number", "y": "number", "z": "number"},
+    "time_step": "number",
+    "real_time_factor": "number"
+  }
+}
+```
+
+**Status Codes:**
+- 200: Success
+- 401: Authentication required
+- 404: Environment not found
+- 500: Internal server error
+
+### 6. RAG Content Integration
+
+#### GET /docs/gazebo-unity-content
+Retrieve structured content for RAG indexing specific to the Gazebo Unity module.
+
+**Query Parameters:**
+- `format`: string (optional, default: 'json') - Output format ('json' or 'text')
+- `include_examples`: boolean (optional, default: true) - Whether to include code/configuration examples
+
+**Response:**
+```json
+{
+  "module": "02-gazebo-unity-digital-twin",
+  "content": [
+    {
+      "id": "string - Unique content ID",
+      "title": "string - Content title",
+      "url": "string - Relative URL in documentation",
+      "content": "string - Content text for indexing",
+      "chapter": "string - Chapter identifier",
+      "section": "string - Section within chapter",
+      "headers": [
+        {
+          "level": "number - Header level (1-6)",
+          "text": "string - Header text",
+          "id": "string - Anchor ID"
+        }
+      ],
+      "metadata": {
+        "module": "string",
+        "chapter": "string",
+        "tags": ["string"]
+      }
+    }
+  ]
+}
+```
+
+**Status Codes:**
+- 200: Content retrieved successfully
+- 400: Invalid parameters
+- 401: Authentication required
+- 500: Internal server error during content retrieval
+
+## Data Models
+
+### Simulation State
+- simulation_id: string (UUID)
+- timestamp: number (Unix timestamp)
+- objects: array of ObjectState
+- sensors: array of SensorData
+- physics: PhysicsProperties
+
+### ObjectState
+- id: string
+- name: string
+- type: string
+- position: Vector3
+- orientation: Quaternion
+- velocity: Velocity
+
+### SensorData
+- id: string
+- type: string
+- data: any (sensor-specific format)
+- timestamp: number
+
+### Vector3
+- x: number
+- y: number
+- z: number
+
+### Quaternion
+- w: number
+- x: number
+- y: number
+- z: number
+
+### Velocity
+- linear: Vector3
+- angular: Vector3
+
+### PhysicsProperties
+- gravity: Vector3
+- time_step: number
+- real_time_factor: number

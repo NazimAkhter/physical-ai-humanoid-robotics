@@ -1,0 +1,373 @@
+# API Contracts: Isaac AI Brain Module
+
+## Overview
+This document defines the API contracts for the services that support the Isaac AI Brain educational module. These APIs will support simulation visualization, synthetic dataset management, and integration with the RAG chatbot system.
+
+## Base URL
+`/api/v1`
+
+## Authentication
+All API endpoints require authentication via Bearer token in the Authorization header, except for public documentation content.
+
+## Content Types
+- Request: `application/json`
+- Response: `application/json`
+
+## Common Error Responses
+
+### 400 Bad Request
+```json
+{
+  "error": "Bad Request",
+  "message": "Description of the error",
+  "code": "INVALID_INPUT"
+}
+```
+
+### 401 Unauthorized
+```json
+{
+  "error": "Unauthorized",
+  "message": "Authentication token is missing or invalid",
+  "code": "AUTH_REQUIRED"
+}
+```
+
+### 404 Not Found
+```json
+{
+  "error": "Not Found",
+  "message": "The requested resource does not exist",
+  "code": "RESOURCE_NOT_FOUND"
+}
+```
+
+### 500 Internal Server Error
+```json
+{
+  "error": "Internal Server Error",
+  "message": "An unexpected error occurred",
+  "code": "INTERNAL_ERROR"
+}
+```
+
+## Endpoints
+
+### 1. Isaac Sim Scene Management
+
+#### GET /isaac-sim/scenes
+Retrieve available Isaac Sim scenes for educational content.
+
+**Query Parameters:**
+- `complexity`: string (optional) - Filter by complexity level (basic, intermediate, advanced)
+- `category`: string (optional) - Filter by scene category (outdoor, indoor, industrial, etc.)
+- `include_datasets`: boolean (optional, default: false) - Include synthetic datasets in response
+
+**Response:**
+```json
+{
+  "scenes": [
+    {
+      "id": "string",
+      "name": "string",
+      "description": "string",
+      "complexity_level": "string",
+      "category": "string",
+      "lighting_config": "object",
+      "objects_count": "number",
+      "rendering_quality": "string",
+      "created_at": "string - ISO 8601 timestamp",
+      "datasets_count": "number",
+      "thumbnail_url": "string"
+    }
+  ],
+  "total_count": "number",
+  "categories": ["string"],
+  "complexity_levels": ["string"]
+}
+```
+
+**Status Codes:**
+- 200: Success
+- 401: Authentication required
+- 500: Internal server error
+
+### 2. Synthetic Dataset Management
+
+#### GET /isaac-sim/datasets
+Retrieve available synthetic datasets generated from Isaac Sim scenes.
+
+**Query Parameters:**
+- `scene_id`: string (optional) - Filter by source scene
+- `data_type`: string (optional) - Filter by data type (images, depth_maps, point_clouds, annotations)
+- `format`: string (optional) - Output format for retrieval (json, binary, tfrecord)
+
+**Response:**
+```json
+{
+  "datasets": [
+    {
+      "id": "string",
+      "name": "string",
+      "scene_id": "string",
+      "data_type": "string",
+      "size_gb": "number",
+      "annotation_format": "string",
+      "image_resolution": {
+        "width": "number",
+        "height": "number"
+      },
+      "frame_count": "number",
+      "generation_date": "string - ISO 8601 timestamp",
+      "quality_metrics": {
+        "sharpness": "number",
+        "noise_level": "number"
+      },
+      "download_url": "string",
+      "preview_url": "string"
+    }
+  ],
+  "total_count": "number"
+}
+```
+
+**Status Codes:**
+- 200: Success
+- 401: Authentication required
+- 500: Internal server error
+
+### 3. VSLAM Pipeline Status
+
+#### GET /vslam/pipelines/{pipeline_id}/status
+Retrieve the current status and metrics of a VSLAM pipeline.
+
+**Path Parameters:**
+- `pipeline_id`: string - The ID of the VSLAM pipeline to retrieve status for
+
+**Response:**
+```json
+{
+  "pipeline_id": "string",
+  "name": "string",
+  "status": "string - 'tracking', 'lost', 'paused', 'error'",
+  "algorithm_type": "string",
+  "tracking_accuracy": "number",
+  "processing_rate_fps": "number",
+  "last_pose_estimate": {
+    "position": {"x": "number", "y": "number", "z": "number"},
+    "orientation": {"w": "number", "x": "number", "y": "number", "z": "number"},
+    "timestamp": "number",
+    "confidence": "number"
+  },
+  "map_coverage": "number - percentage of environment mapped",
+  "computational_load": {
+    "cpu_percent": "number",
+    "gpu_percent": "number",
+    "memory_mb": "number"
+  },
+  "timestamp": "string - ISO 8601 timestamp"
+}
+```
+
+**Status Codes:**
+- 200: Success
+- 401: Authentication required
+- 404: Pipeline not found
+- 500: Internal server error
+
+### 4. Nav2 Navigation Control
+
+#### POST /nav2/navigation/request
+Request navigation to a specific goal location using Nav2.
+
+**Request Body:**
+```json
+{
+  "goal_position": {
+    "x": "number",
+    "y": "number",
+    "theta": "number"
+  },
+  "robot_id": "string",
+  "map_id": "string",
+  "planner_type": "string - optional override",
+  "controller_type": "string - optional override"
+}
+```
+
+**Response:**
+```json
+{
+  "request_id": "string",
+  "status": "string - 'pending', 'active', 'succeeded', 'failed', 'cancelled'",
+  "goal_position": {
+    "x": "number",
+    "y": "number",
+    "theta": "number"
+  },
+  "start_position": {
+    "x": "number",
+    "y": "number",
+    "theta": "number"
+  },
+  "robot_id": "string",
+  "path": [
+    {
+      "x": "number",
+      "y": "number"
+    }
+  ],
+  "estimated_duration_sec": "number",
+  "completion_percentage": "number",
+  "created_at": "string - ISO 8601 timestamp",
+  "updated_at": "string - ISO 8601 timestamp"
+}
+```
+
+**Status Codes:**
+- 201: Navigation request created successfully
+- 400: Invalid request parameters
+- 401: Authentication required
+- 500: Internal server error
+
+### 5. Perception-Nav Integration
+
+#### GET /integration/perception-nav/{request_id}/status
+Retrieve the status of the integrated perception-to-navigation pipeline.
+
+**Path Parameters:**
+- `request_id`: string - The ID of the navigation request to retrieve integration status for
+
+**Response:**
+```json
+{
+  "request_id": "string",
+  "navigation_status": "string",
+  "perception_status": "string",
+  "perception_data": {
+    "detected_obstacles": [
+      {
+        "position": {"x": "number", "y": "number"},
+        "type": "string",
+        "confidence": "number"
+      }
+    ],
+    "landmarks_tracked": "number",
+    "tracking_confidence": "number"
+  },
+  "path_adaptations": [
+    {
+      "timestamp": "string - ISO 8601 timestamp",
+      "original_waypoint": {"x": "number", "y": "number"},
+      "adapted_waypoint": {"x": "number", "y": "number"},
+      "reason": "string"
+    }
+  ],
+  "integration_metrics": {
+    "perception_latency_ms": "number",
+    "decision_frequency_hz": "number",
+    "data_fusion_accuracy": "number"
+  },
+  "last_updated": "string - ISO 8601 timestamp"
+}
+```
+
+**Status Codes:**
+- 200: Success
+- 401: Authentication required
+- 404: Request not found
+- 500: Internal server error
+
+### 6. RAG Content Integration
+
+#### GET /docs/isaac-content
+Retrieve structured content for RAG indexing specific to the Isaac AI Brain module.
+
+**Query Parameters:**
+- `format`: string (optional, default: 'json') - Output format ('json' or 'text')
+- `include_examples`: boolean (optional, default: true) - Whether to include code/configuration examples
+
+**Response:**
+```json
+{
+  "module": "03-isaac-ai-brain",
+  "content": [
+    {
+      "id": "string - Unique content ID",
+      "title": "string - Content title",
+      "url": "string - Relative URL in documentation",
+      "content": "string - Content text for indexing",
+      "chapter": "string - Chapter identifier",
+      "section": "string - Section within chapter",
+      "headers": [
+        {
+          "level": "number - Header level (1-6)",
+          "text": "string - Header text",
+          "id": "string - Anchor ID"
+        }
+      ],
+      "metadata": {
+        "module": "string",
+        "chapter": "string",
+        "tags": ["string"]
+      }
+    }
+  ]
+}
+```
+
+**Status Codes:**
+- 200: Content retrieved successfully
+- 400: Invalid parameters
+- 401: Authentication required
+- 500: Internal server error during content retrieval
+
+## Data Models
+
+### Isaac Sim Scene
+- scene_id: string (UUID)
+- name: string
+- description: string
+- complexity_level: string
+- category: string
+- lighting_config: object
+- objects_count: number
+- rendering_quality: string
+- created_at: string
+
+### Synthetic Dataset
+- id: string (UUID)
+- name: string
+- scene_id: string
+- data_type: string
+- size_gb: number
+- annotation_format: string
+- image_resolution: Resolution object
+- frame_count: number
+- generation_date: string
+- quality_metrics: QualityMetrics object
+
+### Resolution
+- width: number
+- height: number
+
+### QualityMetrics
+- sharpness: number
+- noise_level: number
+
+### Pose Estimate
+- position: Vector3
+- orientation: Quaternion
+- timestamp: number
+- confidence: number
+
+### Vector3
+- x: number
+- y: number
+- z: number
+
+### Quaternion
+- w: number
+- x: number
+- y: number
+- z: number

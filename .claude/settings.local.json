@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(./check-prerequisites.sh --json --require-tasks --include-tasks)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
