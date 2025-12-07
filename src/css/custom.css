@@ -1,0 +1,237 @@
+/**
+ * Copyright (c) 2017-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+  --ifm-color-primary: #25c2a0;
+  --ifm-color-primary-dark: rgb(33, 175, 144);
+  --ifm-color-primary-darker: rgb(31, 165, 136);
+  --ifm-color-primary-darkest: rgb(26, 136, 112);
+  --ifm-color-primary-light: rgb(70, 203, 174);
+  --ifm-color-primary-lighter: rgb(102, 212, 189);
+  --ifm-color-primary-lightest: rgb(146, 224, 208);
+  --ifm-code-font-size: 95%;
+}
+
+/* Custom colors for Physical AI & Humanoid Robotics platform */
+:root {
+  --physical-ai-primary: #3498db;
+  --physical-ai-secondary: #2c3e50;
+  --physical-ai-accent: #e74c3c;
+  --physical-ai-light: #ecf0f1;
+  --physical-ai-dark: #2c3e50;
+}
+
+/* Header and navigation styling */
+.navbar {
+  background-color: var(--physical-ai-secondary);
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar__brand {
+  color: white;
+}
+
+.navbar__title {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.navbar__link {
+  color: var(--physical-ai-light);
+}
+
+.navbar__link:hover {
+  color: var(--physical-ai-primary);
+}
+
+/* Hero banner for home page */
+.hero {
+  background: linear-gradient(135deg, var(--physical-ai-secondary) 0%, #1a2530 100%);
+  color: white;
+  padding: 4rem 0;
+}
+
+.hero__title {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.hero__subtitle {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+/* Custom styling for curriculum cards */
+.curriculum-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.curriculum-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.curriculum-card h3 {
+  color: var(--physical-ai-primary);
+  margin-top: 0;
+  border-bottom: 2px solid var(--physical-ai-light);
+  padding-bottom: 0.5rem;
+}
+
+/* Module-specific styling */
+.module-intro {
+  background-color: var(--physical-ai-light);
+  padding: 2rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.module-intro h1 {
+  color: var(--physical-ai-secondary);
+  margin-top: 0;
+}
+
+/* Code block styling */
+.docusaurus-highlight-code-line {
+  background-color: rgba(0, 0, 0, 0.1);
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
+}
+
+html[data-theme='dark'] .docusaurus-highlight-code-line {
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Sidebar styling */
+.menu {
+  font-size: 0.9rem;
+}
+
+.menu__list-item-collapsible > a {
+  font-weight: 600;
+}
+
+/* Footer styling */
+.footer {
+  background-color: var(--physical-ai-secondary);
+  color: white;
+}
+
+.footer__title {
+  color: white;
+}
+
+.footer__link-item {
+  color: var(--physical-ai-light);
+}
+
+.footer__link-item:hover {
+  color: var(--physical-ai-primary);
+}
+
+/* Custom admonitions for educational content */
+.admonition {
+  border-left: 4px solid var(--physical-ai-primary);
+}
+
+.admonition--note {
+  border-left-color: var(--ifm-color-info);
+}
+
+.admonition--tip {
+  border-left-color: var(--ifm-color-success);
+}
+
+.admonition--caution {
+  border-left-color: var(--ifm-color-warning);
+}
+
+.admonition--danger {
+  border-left-color: var(--ifm-color-danger);
+}
+
+/* Responsive design improvements */
+@media (max-width: 996px) {
+  .hero__title {
+    font-size: 2rem;
+  }
+
+  .hero__subtitle {
+    font-size: 1rem;
+  }
+}
+
+/* Custom styling for API documentation */
+.api-endpoint {
+  background-color: #f8f9fa;
+  border-left: 4px solid var(--physical-ai-primary);
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 0 4px 4px 0;
+}
+
+.api-method {
+  display: inline-block;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-weight: bold;
+  margin-right: 0.5rem;
+}
+
+.api-method.get {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.api-method.post {
+  background-color: #cce5ff;
+  color: #004085;
+}
+
+.api-method.put {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.api-method.delete {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Custom styling for learning objectives */
+.learning-objectives {
+  background-color: #e8f4fd;
+  border-left: 4px solid #2196f3;
+  padding: 1rem;
+  margin: 1rem 0;
+  border-radius: 0 4px 4px 0;
+}
+
+.learning-objectives ul {
+  margin-bottom: 0;
+}
+
+/* Custom styling for code examples */
+.code-example {
+  background-color: #2d2d2d;
+  color: #f8f8f2;
+  border-radius: 4px;
+  overflow-x: auto;
+  margin: 1rem 0;
+}
+
+.code-example pre {
+  margin: 0;
+  padding: 1rem;
+}

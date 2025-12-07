@@ -1,0 +1,74 @@
+# Dependencies
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env*
+*.env*
+.env.local
+.env.*.local
+
+# Docusaurus
+.build/
+.dist/
+.docusaurus/
+.verdaccio/
+coverage/
+.nyc_output/
+
+# Python
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# ROS 2
+install/
+log/
+build/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docs
+docs/build/
+
+# Backend
+backend/__pycache__/
+backend/*.pyc
+backend/logs/
+backend/*.log
+
+# Simulation
+.gazebo/
+.gazebo_preferences
+
+# Sensitive
+*.key
+*.pem
+secrets/
+credentials.json
