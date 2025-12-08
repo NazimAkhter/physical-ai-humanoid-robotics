@@ -3,12 +3,12 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main
+      - master
       - 001-deploy-gh-pages  # Deployment branch for GitHub Pages
       - 004-vla-integration  # Add the branch that contains the Docusaurus site
   pull_request:
     branches:
-      - main
+      - master
 
 jobs:
   deploy:
