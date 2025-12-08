@@ -13,15 +13,14 @@ const config = {
   favicon: 'img/favicon.ico',
 
   // Set the production url of your site here
-  url: 'https://nazimakhter.github.io',
+  url: 'https://hackathon-01-humanoid-book.vercel.app',
   // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/physical_ai_book/',
+  // For Vercel deployment, use root path
+  baseUrl: '/',
 
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'NazimAkhter', // Usually your GitHub org/user name.
-  projectName: 'physical_ai_book', // Usually your repo name.
+  // Repository config
+  organizationName: 'NazimAkhter',
+  projectName: 'hackathon_01_humanoid_book',
 
   onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
@@ -44,7 +43,7 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/NazimAkhter/physical_ai_book/tree/main/',
+            'https://github.com/NazimAkhter/hackathon_01_humanoid_book/tree/master/',
           // Route base path for docs - default is '/docs'
           routeBasePath: '/docs',
         },
@@ -75,27 +74,27 @@ const config = {
             label: 'Curriculum',
           },
           {
-            to: '/docs/modules/ros2-nervous-system',
+            to: 'docs/modules/ros2-nervous-system',
             label: 'Module 1: ROS 2',
             position: 'left'
           },
           {
-            to: '/docs/modules/gazebo-unity-digital-twin',
+            to: 'docs/modules/gazebo-unity-digital-twin',
             label: 'Module 2: Digital Twin',
             position: 'left'
           },
           {
-            to: '/docs/modules/isaac-ai-brain',
+            to: 'docs/modules/isaac-ai-brain',
             label: 'Module 3: Isaac AI',
             position: 'left'
           },
           {
-            to: '/docs/modules/vla-integration',
+            to: 'docs/modules/vla-integration',
             label: 'Module 4: VLA Integration',
             position: 'left'
           },
           {
-            href: 'https://github.com/NazimAkhter/hackathon_o1',
+            href: 'https://github.com/NazimAkhter/hackathon_01_humanoid_book',
             label: 'GitHub',
             position: 'right',
           },
@@ -109,19 +108,19 @@ const config = {
             items: [
               {
                 label: 'Module 1: ROS 2 Nervous System',
-                to: '/docs/modules/ros2-nervous-system',
+                to: 'docs/modules/ros2-nervous-system',
               },
               {
                 label: 'Module 2: Digital Twin (Gazebo & Unity)',
-                to: '/docs/modules/gazebo-unity-digital-twin',
+                to: 'docs/modules/gazebo-unity-digital-twin',
               },
               {
                 label: 'Module 3: Isaac AI Brain',
-                to: '/docs/modules/isaac-ai-brain',
+                to: 'docs/modules/isaac-ai-brain',
               },
               {
                 label: 'Module 4: VLA Integration',
-                to: '/docs/modules/vla-integration',
+                to: 'docs/modules/vla-integration',
               },
             ],
           },
@@ -130,7 +129,7 @@ const config = {
             items: [
               {
                 label: 'GitHub',
-                href: 'https://github.com/NazimAkhter/hackathon_o1',
+                href: 'https://github.com/NazimAkhter/hackathon_01_humanoid_book',
               },
             ],
           },
@@ -139,7 +138,7 @@ const config = {
             items: [
               {
                 label: 'Educational Platform',
-                href: 'https://github.com/NazimAkhter/hackathon_o1',
+                href: 'https://github.com/NazimAkhter/hackathon_01_humanoid_book',
               },
             ],
           },
