@@ -4,7 +4,9 @@ Welcome to the Physical AI & Humanoid Robotics educational platform! This compre
 
 ## 🚀 Live Demo
 
-Visit the deployed site: **[https://nazimakhter.github.io/physical_ai_book/](https://nazimakhter.github.io/physical_ai_book/)**
+**Deployment URL**: TBD (will be available after Vercel deployment)
+
+The site will be deployed on Vercel for optimal performance and global CDN distribution.
 
 ## 📚 Curriculum Overview
 
@@ -38,7 +40,8 @@ This educational platform covers 4 comprehensive modules:
 
 ### Frontend
 - **Framework**: Docusaurus v3
-- **Deployment**: GitHub Pages with automated CI/CD
+- **Deployment**: Vercel with automated CI/CD
+- **CDN**: Vercel Edge Network for global distribution
 - **Styling**: Custom CSS with educational focus
 - **Responsive**: Mobile-first design approach
 
@@ -118,17 +121,28 @@ npm run serve
 
 ## 🔄 Deployment
 
-The site is automatically deployed to GitHub Pages using GitHub Actions:
+The site is automatically deployed to Vercel:
 
-1. Push changes to `main` branch
-2. GitHub Actions workflow triggers automatically
-3. Site builds and deploys to `gh-pages` branch
-4. Available at `https://nazimakhter.github.io/physical_ai_book/`
+### Automatic Deployment
+1. Push changes to any branch
+2. Vercel automatically detects and deploys
+   - **Production**: Deployed from `master` branch
+   - **Preview**: Unique URL for each branch and pull request
+3. Site builds and deploys to Vercel CDN
 
-### Manual Deployment
+### Vercel Setup
+1. Visit [vercel.com](https://vercel.com) and sign in with GitHub
+2. Import repository: `NazimAkhter/hackathon_01_humanoid_book`
+3. Vercel auto-detects Docusaurus configuration
+4. Click "Deploy"
+
+### Local Testing
 ```bash
-# Deploy to GitHub Pages
-GIT_USER=<Your GitHub Username> USE_SSH=true npm run deploy
+# Build for production
+npm run build
+
+# Serve production build locally
+npm run serve
 ```
 
 ## 🏗️ Project Structure
@@ -144,8 +158,7 @@ physical_ai_book/
 ├── backend/                # Backend services
 │   ├── src/                # Backend source code
 │   └── requirements.txt    # Python dependencies
-├── .github/                # GitHub Actions workflows
-│   └── workflows/          # CI/CD configurations
+├── vercel.json             # Vercel deployment configuration
 ├── docusaurus.config.js    # Site configuration
 ├── sidebars.js             # Navigation structure
 └── package.json            # Frontend dependencies
@@ -189,8 +202,8 @@ Students completing this curriculum will be able to:
 ## 📞 Support
 
 For questions, issues, or support:
-- **Issues**: [GitHub Issues](https://github.com/NazimAkhter/physical_ai_book/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/NazimAkhter/physical_ai_book/discussions)
+- **Issues**: [GitHub Issues](https://github.com/NazimAkhter/hackathon_01_humanoid_book/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/NazimAkhter/hackathon_01_humanoid_book/discussions)
 - **Email**: [Contact the maintainers](mailto:nazim.akhter@example.com)
 
 ## 📄 License
@@ -202,7 +215,8 @@ This educational platform is open source and available under the [MIT License](L
 - NVIDIA for Isaac Sim and AI technologies
 - Open Robotics for ROS 2
 - Docusaurus team for the documentation platform
-- GitHub for hosting and CI/CD services
+- Vercel for hosting and deployment platform
+- GitHub for repository hosting
 - The open source robotics community
 
 ---
