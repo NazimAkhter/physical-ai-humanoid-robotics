@@ -1,0 +1,396 @@
+# OpenAPI Specification for Docusaurus GitHub Pages Deployment API
+# This document describes the interfaces and contracts for the deployment system
+
+openapi: 3.0.3
+info:
+  title: Docusaurus GitHub Pages Deployment API
+  description: API contracts for deployment operations of Docusaurus sites to GitHub Pages
+  version: 1.0.0
+  contact:
+    name: Physical AI & Humanoid Robotics Team
+    email: dev@physical-ai-book.org
+
+servers:
+  - url: https://api.github.com
+    description: GitHub API Server
+  - url: https://nazimakhter.github.io/physical_ai_book
+    description: Deployed Site Base URL
+
+paths:
+  /repos/{owner}/{repo}/pages:
+    get:
+      summary: Get GitHub Pages configuration
+      description: Retrieve the current GitHub Pages configuration for a repository
+      operationId: getPagesConfiguration
+      parameters:
+        - name: owner
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Repository owner
+        - name: repo
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Repository name
+      responses:
+        '200':
+          description: GitHub Pages configuration
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagesConfiguration'
+        '404':
+          description: Pages configuration not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+  /repos/{owner}/{repo}/pages/deployment:
+    post:
+      summary: Create GitHub Pages deployment
+      description: Trigger a new deployment to GitHub Pages
+      operationId: createPagesDeployment
+      parameters:
+        - name: owner
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Repository owner
+        - name: repo
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Repository name
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PagesDeploymentRequest'
+      responses:
+        '200':
+          description: Deployment created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagesDeploymentResponse'
+        '400':
+          description: Invalid deployment request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+  /repos/{owner}/{repo}/actions/workflows/{workflow_id}/dispatches:
+    post:
+      summary: Dispatch GitHub Actions workflow
+      description: Trigger a specific GitHub Actions workflow
+      operationId: dispatchWorkflow
+      parameters:
+        - name: owner
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Repository owner
+        - name: repo
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Repository name
+        - name: workflow_id
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Workflow ID or filename
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/WorkflowDispatchRequest'
+      responses:
+        '204':
+          description: Workflow dispatched successfully
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+        '404':
+          description: Workflow not found
+
+  /repos/{owner}/{repo}/actions/runs:
+    get:
+      summary: List workflow runs
+      description: Get list of workflow runs for the repository
+      operationId: listWorkflowRuns
+      parameters:
+        - name: owner
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Repository owner
+        - name: repo
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Repository name
+        - name: workflow_id
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Filter by workflow ID
+        - name: status
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [completed, in_progress, queued, waiting]
+          description: Filter by workflow run status
+      responses:
+        '200':
+          description: List of workflow runs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WorkflowRunsResponse'
+
+components:
+  schemas:
+    PagesConfiguration:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          description: URL of the GitHub Pages site
+        status:
+          type: string
+          enum: [built, building, queued, error]
+          description: Current status of the GitHub Pages site
+        cname:
+          type: string
+          format: hostname
+          description: Custom domain if configured
+        custom_404:
+          type: boolean
+          description: Whether custom 404 page is configured
+        html_url:
+          type: string
+          format: uri
+          description: HTML URL of the GitHub Pages site
+        source:
+          type: object
+          properties:
+            branch:
+              type: string
+              description: Branch used for GitHub Pages
+            path:
+              type: string
+              description: Path in the branch used for GitHub Pages
+          required:
+            - branch
+            - path
+
+    PagesDeploymentRequest:
+      type: object
+      properties:
+        source:
+          type: object
+          properties:
+            branch:
+              type: string
+              description: Branch to deploy from
+              default: main
+            path:
+              type: string
+              description: Path in the branch to deploy
+              default: /
+          required:
+            - branch
+      required:
+        - source
+
+    PagesDeploymentResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          description: Status of the deployment
+        error:
+          type: object
+          properties:
+            message:
+              type: string
+              description: Error message if deployment failed
+        url:
+          type: string
+          format: uri
+          description: URL of the deployed site
+        status_url:
+          type: string
+          format: uri
+          description: URL to check deployment status
+
+    WorkflowDispatchRequest:
+      type: object
+      properties:
+        ref:
+          type: string
+          description: The reference of the workflow run. The reference can be a branch or tag name.
+        inputs:
+          type: object
+          description: Input parameters for the workflow
+          additionalProperties:
+            type: string
+
+    WorkflowRunsResponse:
+      type: object
+      properties:
+        total_count:
+          type: integer
+        workflow_runs:
+          type: array
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: Unique identifier for the workflow run
+              name:
+                type: string
+                description: Name of the workflow
+              status:
+                type: string
+                enum: [requested, waiting, pending, in_progress, completed, queued]
+                description: Status of the workflow run
+              conclusion:
+                type: string
+                enum: [success, failure, cancelled, skipped, timed_out, action_required]
+                description: Conclusion of the workflow run
+              created_at:
+                type: string
+                format: date-time
+                description: Creation timestamp
+              updated_at:
+                type: string
+                format: date-time
+                description: Last update timestamp
+              url:
+                type: string
+                format: uri
+                description: URL of the workflow run
+              html_url:
+                type: string
+                format: uri
+                description: HTML URL of the workflow run
+
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Error message
+        documentation_url:
+          type: string
+          format: uri
+          description: URL to relevant documentation
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              resource:
+                type: string
+                description: Resource associated with the error
+              field:
+                type: string
+                description: Field associated with the error
+              code:
+                type: string
+                description: Error code
+
+  responses:
+    UnauthorizedError:
+      description: Unauthorized - Invalid or missing token
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: "Bad credentials"
+              documentation_url:
+                type: string
+                format: uri
+                example: "https://docs.github.com/rest"
+
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: GitHub Personal Access Token with appropriate scopes
+
+security:
+  - BearerAuth: []
+
+tags:
+  - name: Pages
+    description: Operations related to GitHub Pages configuration and deployment
+  - name: Workflows
+    description: Operations related to GitHub Actions workflows
+  - name: Deployments
+    description: Operations related to deployment processes
+
+# Additional configuration for Docusaurus-specific deployment contracts
+
+x-docusaurus-config:
+  # Expected docusaurus.config.js settings for GitHub Pages
+  required-fields:
+    - url
+    - baseUrl
+    - organizationName
+    - projectName
+    - deploymentBranch
+  optional-fields:
+    - trailingSlash
+    - favicon
+    - customFields
+
+x-github-actions-workflow:
+  # Expected GitHub Actions workflow configuration
+  required-steps:
+    - checkout
+    - setup-node
+    - install-dependencies
+    - build-site
+    - deploy-to-pages
+  required-actions:
+    - actions/checkout
+    - actions/setup-node
+    - peaceiris/actions-gh-pages
+
+x-deployment-validation:
+  # Validation rules for deployment
+  pre-deployment:
+    - verify-build-success
+    - check-asset-integrity
+    - validate-links
+  post-deployment:
+    - verify-site-accessibility
+    - check-page-load-times
+    - validate-all-pages

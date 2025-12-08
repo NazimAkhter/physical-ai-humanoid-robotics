@@ -6,7 +6,7 @@ const sidebars = {
     {
       type: 'category',
       label: 'Getting Started',
-      items: ['index'],
+      items: ['modules/ros2-nervous-system/index'],
       collapsed: false,
     },
     {

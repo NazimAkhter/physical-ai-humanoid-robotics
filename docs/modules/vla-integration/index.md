@@ -30,4 +30,4 @@ Before starting this module, you should have:
 
 ## Getting Started
 
-Begin with [Chapter 1: Voice Processing with OpenAI Whisper](./01-voice-processing.md) to learn how to process voice commands and convert them to actionable robot commands using OpenAI Whisper.
+Begin with Chapter 1: Voice Processing with OpenAI Whisper to learn how to process voice commands and convert them to actionable robot commands using OpenAI Whisper.
