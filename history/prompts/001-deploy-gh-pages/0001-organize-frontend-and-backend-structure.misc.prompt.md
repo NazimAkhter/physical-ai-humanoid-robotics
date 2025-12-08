@@ -1,3 +1,4 @@
+
 ---
 id: 0001
 title: Organize frontend and backend structure
