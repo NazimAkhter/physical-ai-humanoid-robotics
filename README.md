@@ -75,10 +75,12 @@ This educational platform covers 4 comprehensive modules:
 ## 📦 Installation
 
 ### Quick Start
+
+#### Frontend (Docusaurus)
 ```bash
 # Clone the repository
-git clone https://github.com/NazimAkhter/physical_ai_book.git
-cd physical_ai_book
+git clone https://github.com/NazimAkhter/hackathon_01_humanoid_book.git
+cd hackathon_01_humanoid_book/frontend
 
 # Install dependencies
 npm install
@@ -87,10 +89,14 @@ npm install
 npm start
 ```
 
-### Backend Services Setup
+#### Backend Services
 ```bash
 # Navigate to backend directory
 cd backend
+
+# Create virtual environment (recommended)
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 # Install Python dependencies
 pip install -r requirements.txt
@@ -101,8 +107,10 @@ python src/main.py
 
 ## 🚀 Development
 
-### Running Locally
+### Running Frontend Locally
 ```bash
+cd frontend
+
 # Start Docusaurus development server
 npm start
 
@@ -113,9 +121,20 @@ npm run build
 npm run serve
 ```
 
+### Running Backend Locally
+```bash
+cd backend
+
+# Activate virtual environment
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+
+# Run development server
+python src/main.py
+```
+
 ### Adding New Content
-1. Create new markdown files in the `docs/` directory
-2. Update `sidebars.js` to include new pages in navigation
+1. Create new markdown files in the `frontend/docs/` directory
+2. Update `frontend/sidebars.js` to include new pages in navigation
 3. Use Docusaurus MDX components for interactive content
 4. Test locally before committing
 
@@ -138,6 +157,8 @@ The site is automatically deployed to Vercel:
 
 ### Local Testing
 ```bash
+cd frontend
+
 # Build for production
 npm run build
 
@@ -148,20 +169,35 @@ npm run serve
 ## 🏗️ Project Structure
 
 ```
-physical_ai_book/
-├── docs/                   # Educational content
-│   ├── modules/            # Curriculum modules
-│   ├── project/            # Project integration
-│   └── reference/          # Reference materials
-├── src/                    # Custom Docusaurus components
-├── static/                 # Static assets
-├── backend/                # Backend services
-│   ├── src/                # Backend source code
-│   └── requirements.txt    # Python dependencies
-├── vercel.json             # Vercel deployment configuration
-├── docusaurus.config.js    # Site configuration
-├── sidebars.js             # Navigation structure
-└── package.json            # Frontend dependencies
+hackathon_01_humanoid_book/
+├── frontend/                    # Frontend application (Docusaurus)
+│   ├── docs/                    # Educational content
+│   │   ├── modules/             # Curriculum modules
+│   │   ├── project/             # Project integration
+│   │   └── reference/           # Reference materials
+│   ├── src/                     # Custom Docusaurus components
+│   ├── static/                  # Static assets
+│   ├── docusaurus.config.js     # Site configuration
+│   ├── sidebars.js              # Navigation structure
+│   ├── package.json             # Frontend dependencies
+│   └── package-lock.json        # Frontend lock file
+│
+├── backend/                     # Backend services (Python)
+│   ├── src/                     # Backend source code
+│   │   ├── main.py              # Entry point
+│   │   ├── services/            # Service modules
+│   │   └── utils/               # Utility functions
+│   └── requirements.txt         # Python dependencies
+│
+├── specs/                       # Feature specifications
+├── plans/                       # Implementation plans
+├── tasks/                       # Task breakdowns
+├── history/                     # Prompt history records
+├── contracts/                   # API contracts
+├── data-models/                 # Data models
+├── vercel.json                  # Vercel deployment config
+├── README.md                    # This file
+└── .gitignore                   # Git ignore rules
 ```
 
 ## 🤝 Contributing
