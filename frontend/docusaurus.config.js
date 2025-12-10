@@ -10,7 +10,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 const config = {
   title: 'Physical AI & Humanoid Robotics Education',
   tagline: 'Learn Robotics, AI, and Humanoid Systems',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/icons/favicon.ico',
 
   // Set the production url of your site here
   url: 'https://hackathon-01-humanoid-book.vercel.app',
@@ -32,6 +32,16 @@ const config = {
     defaultLocale: 'en',
     locales: ['en'],
   },
+
+  headTags: [
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'icon',
+        href: '/img/icons/favicon.ico',
+      },
+    },
+  ],
 
   presets: [
     [
@@ -63,8 +73,9 @@ const config = {
       navbar: {
         title: 'Physical AI Education',
         logo: {
-          alt: 'Physical AI Logo',
-          src: 'img/logo.svg',
+          alt: 'Physical AI & Humanoid Robotics Logo',
+          src: 'img/logos/robot-logo.png',
+          srcDark: 'img/logos/robot-logo.png',
         },
         items: [
           {
@@ -74,24 +85,30 @@ const config = {
             label: 'Curriculum',
           },
           {
-            to: 'docs/modules/ros2-nervous-system',
-            label: 'Module 1: ROS 2',
-            position: 'left'
+            type: 'dropdown',
+            label: 'Resources',
+            position: 'left',
+            items: [
+              { label: 'Documentation', to: '/docs/project/introduction' },
+              { label: 'Project Setup', to: '/docs/project/setup' },
+              { label: 'Development Guide', to: '/docs/project/development' },
+              { label: 'Examples', to: '/docs/project' },
+            ]
           },
           {
-            to: 'docs/modules/gazebo-unity-digital-twin',
-            label: 'Module 2: Digital Twin',
-            position: 'left'
-          },
-          {
-            to: 'docs/modules/isaac-ai-brain',
-            label: 'Module 3: Isaac AI',
-            position: 'left'
-          },
-          {
-            to: 'docs/modules/vla-integration',
-            label: 'Module 4: VLA Integration',
-            position: 'left'
+            type: 'dropdown',
+            label: 'Community',
+            position: 'right',
+            items: [
+              {
+                label: 'Discussions',
+                href: 'https://github.com/NazimAkhter/hackathon_01_humanoid_book/discussions'
+              },
+              {
+                label: 'Report Issues',
+                href: 'https://github.com/NazimAkhter/hackathon_01_humanoid_book/issues'
+              },
+            ]
           },
           {
             href: 'https://github.com/NazimAkhter/hackathon_01_humanoid_book',
@@ -104,43 +121,45 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: 'Curriculum',
+            title: 'Learn',
             items: [
-              {
-                label: 'Module 1: ROS 2 Nervous System',
-                to: 'docs/modules/ros2-nervous-system',
-              },
-              {
-                label: 'Module 2: Digital Twin (Gazebo & Unity)',
-                to: 'docs/modules/gazebo-unity-digital-twin',
-              },
-              {
-                label: 'Module 3: Isaac AI Brain',
-                to: 'docs/modules/isaac-ai-brain',
-              },
-              {
-                label: 'Module 4: VLA Integration',
-                to: 'docs/modules/vla-integration',
-              },
-            ],
+              { label: 'Getting Started', to: '/docs/project/introduction' },
+            ]
+          },
+          {
+            title: 'Resources',
+            items: [
+              { label: 'Documentation', to: '/docs/project/introduction' },
+              { label: 'Project Setup', to: '/docs/project/setup' },
+              { label: 'Development Guide', to: '/docs/project/development' },
+              { label: 'Deployment', to: '/docs/project/deployment' },
+            ]
           },
           {
             title: 'Community',
             items: [
               {
-                label: 'GitHub',
-                href: 'https://github.com/NazimAkhter/hackathon_01_humanoid_book',
+                label: 'GitHub Repository',
+                href: 'https://github.com/NazimAkhter/hackathon_01_humanoid_book'
               },
-            ],
+              {
+                label: 'Discussions',
+                href: 'https://github.com/NazimAkhter/hackathon_01_humanoid_book/discussions'
+              },
+              {
+                label: 'Report Issues',
+                href: 'https://github.com/NazimAkhter/hackathon_01_humanoid_book/issues'
+              },
+            ]
           },
           {
             title: 'More',
             items: [
               {
-                label: 'Educational Platform',
-                href: 'https://github.com/NazimAkhter/hackathon_01_humanoid_book',
+                label: 'License',
+                href: 'https://github.com/NazimAkhter/hackathon_01_humanoid_book/blob/master/LICENSE'
               },
-            ],
+            ]
           },
         ],
         copyright: `Copyright © ${new Date().getFullYear()} Physical AI & Humanoid Robotics Education. Built with Docusaurus.`,

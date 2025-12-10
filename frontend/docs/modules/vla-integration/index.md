@@ -1,3 +1,7 @@
+---
+sidebar_position: 1
+---
+
 # Module 4: Vision-Language-Action (VLA) Integration
 
 Welcome to the Vision-Language-Action (VLA) Integration module! This module covers connecting voice commands to robot actions using OpenAI Whisper for speech-to-text, Large Language Models for cognitive planning, and perception systems for grounding language to visual entities.

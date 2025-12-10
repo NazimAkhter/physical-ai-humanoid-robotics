@@ -1,6 +1,5 @@
 ---
 sidebar_position: 1
-slug: /
 ---
 
 # Module 1: ROS 2 Nervous System

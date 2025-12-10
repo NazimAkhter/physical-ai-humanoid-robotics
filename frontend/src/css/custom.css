@@ -7,23 +7,23 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: rgb(33, 175, 144);
-  --ifm-color-primary-darker: rgb(31, 165, 136);
-  --ifm-color-primary-darkest: rgb(26, 136, 112);
-  --ifm-color-primary-light: rgb(70, 203, 174);
-  --ifm-color-primary-lighter: rgb(102, 212, 189);
-  --ifm-color-primary-lightest: rgb(146, 224, 208);
+  --ifm-color-primary: #2563eb;
+  --ifm-color-primary-dark: #1d4ed8;
+  --ifm-color-primary-darker: #1e40af;
+  --ifm-color-primary-darkest: #1e3a8a;
+  --ifm-color-primary-light: #3b82f6;
+  --ifm-color-primary-lighter: #60a5fa;
+  --ifm-color-primary-lightest: #93c5fd;
   --ifm-code-font-size: 95%;
 }
 
 /* Custom colors for Physical AI & Humanoid Robotics platform */
 :root {
-  --physical-ai-primary: #3498db;
-  --physical-ai-secondary: #2c3e50;
-  --physical-ai-accent: #e74c3c;
-  --physical-ai-light: #ecf0f1;
-  --physical-ai-dark: #2c3e50;
+  --physical-ai-primary: #2563eb;      /* Blue from reference theme */
+  --physical-ai-secondary: #1e293b;    /* Dark blue-gray background */
+  --physical-ai-accent: #f97316;       /* Orange accent from reference */
+  --physical-ai-light: #f8fafc;        /* Light gray background */
+  --physical-ai-dark: #0f172a;         /* Very dark blue-gray */
 }
 
 /* Header and navigation styling */
@@ -49,9 +49,14 @@
   color: var(--physical-ai-primary);
 }
 
+.navbar__link--active {
+  color: var(--physical-ai-primary);
+  border-bottom: 2px solid var(--physical-ai-accent);
+}
+
 /* Hero banner for home page */
 .hero {
-  background: linear-gradient(135deg, var(--physical-ai-secondary) 0%, #1a2530 100%);
+  background: linear-gradient(135deg, var(--physical-ai-secondary) 0%, var(--physical-ai-dark) 100%);
   color: white;
   padding: 4rem 0;
 }
@@ -124,7 +129,7 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
 
 /* Footer styling */
 .footer {
-  background-color: var(--physical-ai-secondary);
+  background-color: var(--physical-ai-dark);
   color: white;
 }
 
@@ -190,23 +195,23 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
 }
 
 .api-method.get {
-  background-color: #d4edda;
-  color: #155724;
+  background-color: color-mix(in srgb, var(--physical-ai-primary) 20%, transparent);
+  color: var(--physical-ai-primary);
 }
 
 .api-method.post {
-  background-color: #cce5ff;
-  color: #004085;
+  background-color: color-mix(in srgb, var(--physical-ai-accent) 20%, transparent);
+  color: var(--physical-ai-accent);
 }
 
 .api-method.put {
-  background-color: #fff3cd;
-  color: #856404;
+  background-color: color-mix(in srgb, var(--physical-ai-primary) 20%, transparent);
+  color: var(--physical-ai-primary);
 }
 
 .api-method.delete {
-  background-color: #f8d7da;
-  color: #721c24;
+  background-color: color-mix(in srgb, #ef4444 20%, transparent);
+  color: #ef4444;
 }
 
 /* Custom styling for learning objectives */

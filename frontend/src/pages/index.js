@@ -12,14 +12,36 @@ function HomepageHeader() {
   return (
     <header className={clsx('hero hero--primary', styles.heroBanner)}>
       <div className="container">
-        <h1 className="hero__title">{siteConfig.title}</h1>
-        <p className="hero__subtitle">{siteConfig.tagline}</p>
-        <div className={styles.buttons}>
-          <Link
-            className="button button--secondary button--lg"
-            to="/docs/modules/01-ros2-nervous-system">
-            Start Learning - 5min ⏱️
-          </Link>
+        <div className={styles.heroContent}>
+          <div className={styles.heroText}>
+            <h1 className="hero__title">{siteConfig.title}</h1>
+            <p className="hero__subtitle">{siteConfig.tagline}</p>
+            <div className={styles.buttons}>
+              <Link
+                className="button button--primary button--lg"
+                to="/docs/project/introduction">
+                Get Started →
+              </Link>
+              <Link
+                className="button button--secondary button--lg margin-left--md"
+                to="/docs/modules/ros2-nervous-system/">
+                Explore Modules
+              </Link>
+            </div>
+          </div>
+          <div className={styles.heroImage}>
+            <picture>
+              <source
+                srcSet="/img/heroes/futuristic-robot-hero.png"
+                type="image/png"
+              />
+              <img
+                src="/img/heroes/futuristic-robot-hero.png"
+                alt="Modern humanoid robot representing Physical AI education"
+                loading="lazy"
+              />
+            </picture>
+          </div>
         </div>
       </div>
     </header>
@@ -30,7 +52,7 @@ export default function Home() {
   const {siteConfig} = useDocusaurusContext();
   return (
     <Layout
-      title={`Hello from ${siteConfig.title}`}
+      title={`${siteConfig.title}`}
       description="Educational platform for Physical AI & Humanoid Robotics">
       <HomepageHeader />
       <main>
@@ -80,7 +102,7 @@ export default function Home() {
                     <p>Learn ROS 2 as the nervous system for humanoid robotics, including architecture, communication patterns, and integration.</p>
                   </div>
                   <div className="card__footer">
-                    <Link className="button button--primary" to="/docs/modules/01-ros2-nervous-system">
+                    <Link className="button button--primary" to="/docs/modules/ros2-nervous-system/">
                       Start Module
                     </Link>
                   </div>
@@ -96,7 +118,7 @@ export default function Home() {
                     <p>Create and use digital twins with Gazebo and Unity for simulation, testing, and development.</p>
                   </div>
                   <div className="card__footer">
-                    <Link className="button button--primary" to="/docs/modules/02-gazebo-unity-digital-twin">
+                    <Link className="button button--primary" to="/docs/modules/gazebo-unity-digital-twin/">
                       Start Module
                     </Link>
                   </div>
@@ -112,7 +134,7 @@ export default function Home() {
                     <p>NVIDIA Isaac for AI-powered robotics, including computer vision, perception, and intelligent decision-making.</p>
                   </div>
                   <div className="card__footer">
-                    <Link className="button button--primary" to="/docs/modules/03-isaac-ai-brain">
+                    <Link className="button button--primary" to="/docs/modules/isaac-ai-brain/">
                       Start Module
                     </Link>
                   </div>
@@ -128,7 +150,7 @@ export default function Home() {
                     <p>Vision-Language-Action integration for natural human-robot interaction using advanced AI systems.</p>
                   </div>
                   <div className="card__footer">
-                    <Link className="button button--primary" to="/docs/modules/04-vla-integration">
+                    <Link className="button button--primary" to="/docs/modules/vla-integration/">
                       Start Module
                     </Link>
                   </div>
