@@ -213,3 +213,7 @@ See `.specify/memory/constitution.md` for code quality, testing, performance, se
 - 004-vla-integration: Added [if applicable, e.g., PostgreSQL, CoreData, files or N/A]
 - 003-isaac-ai-brain: Added [if applicable, e.g., PostgreSQL, CoreData, files or N/A]
 - 002-gazebo-unity-digital-twin: Added [if applicable, e.g., PostgreSQL, CoreData, files or N/A]
+
+## Active Technologies
+- JavaScript/TypeScript (ES2020+), React 18.x (already in Docusaurus) (005-embedded-chatbot)
+- Browser sessionStorage for conversation state (in-memory during page session); no persistent storage required (005-embedded-chatbot)

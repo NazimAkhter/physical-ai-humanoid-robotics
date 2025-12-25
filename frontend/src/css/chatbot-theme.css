@@ -1,0 +1,164 @@
+/**
+ * Chatbot Theme Variables
+ * Uses Docusaurus CSS variables for automatic light/dark mode support
+ * All colors meet WCAG AA contrast ratio standards (4.5:1 for normal text, 3:1 for large text)
+ */
+
+:root {
+  /* Structural Variables */
+  --chatbot-panel-width: 450px;
+  --chatbot-panel-max-height: 600px;
+  --chatbot-toggle-size: 60px;
+  --chatbot-message-padding: 12px;
+  --chatbot-border-radius: 8px;
+  --chatbot-z-index-backdrop: 1100;
+  --chatbot-z-index-panel: 1101;
+  --chatbot-z-index-toggle: 1000;
+
+  /* Light Mode Color Overrides (WCAG AA compliant) */
+  --chatbot-backdrop-color: rgba(0, 0, 0, 0.3);
+  --chatbot-panel-bg: var(--ifm-background-color);
+  --chatbot-panel-border: var(--ifm-color-emphasis-300);
+  --chatbot-header-bg: var(--ifm-background-surface-color);
+  --chatbot-text-color: var(--ifm-font-color-base);
+  --chatbot-text-secondary: var(--ifm-color-emphasis-600);
+  
+  /* Message Colors - Light Mode */
+  --chatbot-message-user-bg: var(--ifm-color-primary);
+  --chatbot-message-user-text: #ffffff;
+  --chatbot-message-bot-bg: var(--ifm-color-emphasis-100);
+  --chatbot-message-bot-text: var(--ifm-font-color-base);
+  
+  /* Context Banner */
+  --chatbot-context-bg: var(--ifm-color-primary-lightest);
+  --chatbot-context-border: var(--ifm-color-emphasis-300);
+  --chatbot-context-text: var(--ifm-color-emphasis-800);
+  
+  /* Input Area */
+  --chatbot-input-bg: var(--ifm-background-color);
+  --chatbot-input-border: var(--ifm-color-emphasis-300);
+  --chatbot-input-border-focus: var(--ifm-color-primary);
+  --chatbot-input-text: var(--ifm-font-color-base);
+  
+  /* Buttons */
+  --chatbot-button-primary-bg: var(--ifm-color-primary);
+  --chatbot-button-primary-text: #ffffff;
+  --chatbot-button-primary-hover: var(--ifm-color-primary-dark);
+  
+  /* Error State */
+  --chatbot-error-bg: var(--ifm-color-danger-lightest);
+  --chatbot-error-border: var(--ifm-color-danger-light);
+  --chatbot-error-text: var(--ifm-color-danger-dark);
+  
+  /* Toggle Button */
+  --chatbot-toggle-bg: var(--ifm-color-primary);
+  --chatbot-toggle-text: #ffffff;
+  --chatbot-toggle-shadow: rgba(0, 0, 0, 0.15);
+}
+
+/* Dark Mode Overrides */
+[data-theme='dark'] {
+  /* Dark mode backdrop (slightly lighter for better contrast) */
+  --chatbot-backdrop-color: rgba(0, 0, 0, 0.5);
+  
+  /* Panel colors for dark mode */
+  --chatbot-panel-bg: var(--ifm-background-color);
+  --chatbot-panel-border: var(--ifm-color-emphasis-300);
+  --chatbot-header-bg: var(--ifm-background-surface-color);
+  
+  /* Message colors - adjusted for dark mode contrast */
+  --chatbot-message-user-bg: var(--ifm-color-primary);
+  --chatbot-message-user-text: #ffffff;
+  --chatbot-message-bot-bg: var(--ifm-color-emphasis-200);
+  --chatbot-message-bot-text: var(--ifm-font-color-base);
+  
+  /* Context banner - better visibility in dark mode */
+  --chatbot-context-bg: rgba(var(--ifm-color-primary-rgb), 0.15);
+  --chatbot-context-border: var(--ifm-color-emphasis-300);
+  --chatbot-context-text: var(--ifm-color-emphasis-700);
+  
+  /* Input area */
+  --chatbot-input-bg: var(--ifm-background-color);
+  --chatbot-input-border: var(--ifm-color-emphasis-300);
+  --chatbot-input-border-focus: var(--ifm-color-primary-light);
+  
+  /* Error state for dark mode */
+  --chatbot-error-bg: rgba(var(--ifm-color-danger-rgb), 0.15);
+  --chatbot-error-border: var(--ifm-color-danger);
+  --chatbot-error-text: var(--ifm-color-danger-lightest);
+  
+  /* Toggle button shadow */
+  --chatbot-toggle-shadow: rgba(0, 0, 0, 0.3);
+}
+
+/* Apply theme variables to chatbot components */
+.chatbot-panel {
+  background: var(--chatbot-panel-bg);
+  color: var(--chatbot-text-color);
+  border: 1px solid var(--chatbot-panel-border);
+}
+
+.chatbot-header {
+  background: var(--chatbot-header-bg);
+  border-bottom: 1px solid var(--chatbot-panel-border);
+}
+
+.chatbot-message-user {
+  background: var(--chatbot-message-user-bg);
+  color: var(--chatbot-message-user-text);
+}
+
+.chatbot-message-bot {
+  background: var(--chatbot-message-bot-bg);
+  color: var(--chatbot-message-bot-text);
+}
+
+.chatbot-context {
+  background: var(--chatbot-context-bg);
+  border-bottom: 1px solid var(--chatbot-context-border);
+  color: var(--chatbot-context-text);
+}
+
+.chatbot-input {
+  background: var(--chatbot-input-bg);
+  border: 1px solid var(--chatbot-input-border);
+  color: var(--chatbot-input-text);
+}
+
+.chatbot-input:focus {
+  border-color: var(--chatbot-input-border-focus);
+}
+
+.chatbot-button-primary {
+  background: var(--chatbot-button-primary-bg);
+  color: var(--chatbot-button-primary-text);
+  box-shadow: 0 2px 8px var(--chatbot-toggle-shadow);
+}
+
+.chatbot-button-primary:hover {
+  background: var(--chatbot-button-primary-hover);
+}
+
+.chatbot-error {
+  background: var(--chatbot-error-bg);
+  border-top: 1px solid var(--chatbot-error-border);
+  color: var(--chatbot-error-text);
+}
+
+.chatbot-toggle {
+  background: var(--chatbot-toggle-bg);
+  color: var(--chatbot-toggle-text);
+  box-shadow: 0 4px 12px var(--chatbot-toggle-shadow);
+}
+
+/* Smooth theme transition */
+.chatbot-panel,
+.chatbot-header,
+.chatbot-message-user,
+.chatbot-message-bot,
+.chatbot-context,
+.chatbot-input,
+.chatbot-button-primary,
+.chatbot-toggle {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}

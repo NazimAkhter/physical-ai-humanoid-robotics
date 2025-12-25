@@ -32,12 +32,12 @@ function HomepageHeader() {
           <div className={styles.heroImage}>
             <picture>
               <source
-                srcSet="/img/heroes/futuristic-robot-hero.png"
+                srcSet="/img/hero-robot.png"
                 type="image/png"
               />
               <img
-                src="/img/heroes/futuristic-robot-hero.png"
-                alt="Modern humanoid robot representing Physical AI education"
+                src="/img/hero-robot.png"
+                alt="Futuristic robot using laptop representing Physical AI education"
                 loading="lazy"
               />
             </picture>

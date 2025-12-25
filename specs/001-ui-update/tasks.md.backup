@@ -1,5 +1,6 @@
 ---
 description: "Task list for UI Update for Physical AI Book Website"
+---
 
 # Tasks: UI Update for Physical AI Book Website
 
@@ -25,10 +26,11 @@ description: "Task list for UI Update for Physical AI Book Website"
 
 **Purpose**: Project initialization and basic structure
 
-- [X] T001 Verify frontend project structure exists per implementation plan
-- [X] T002 [P] Install required dependencies if not already present
-- [X] T003 [P] Verify Docusaurus development server can start successfully
+- [ ] T001 Verify frontend project structure exists per implementation plan
+- [ ] T002 [P] Install required dependencies if not already present
+- [ ] T003 [P] Verify Docusaurus development server can start successfully
 
+---
 
 ## Phase 2: Foundational (Blocking Prerequisites)
 
@@ -36,12 +38,13 @@ description: "Task list for UI Update for Physical AI Book Website"
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [X] T004 Verify current navigation structure in docusaurus.config.js
-- [X] T005 [P] Identify all 6 module navigation links (NOTE: No 6 module links found) to be removed
-- [X] T006 [P] Create backup of current docusaurus.config.js file
+- [ ] T004 Verify current navigation structure in docusaurus.config.js
+- [ ] T005 [P] Identify all 6 module navigation links to be removed
+- [ ] T006 [P] Create backup of current docusaurus.config.js file
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
+---
 
 ## Phase 3: User Story 1 - Improved Navigation Experience (Priority: P1) 🎯 MVP
 
@@ -51,13 +54,14 @@ description: "Task list for UI Update for Physical AI Book Website"
 
 ### Implementation for User Story 1
 
-- [X] T007 [US1] SKIPPED - No 6 module navigation links from Header navbar in frontend/docusaurus.config.js
-- [X] T008 [US1] SKIPPED - No 6 module navigation links from Resources menu in frontend/docusaurus.config.js
-- [X] T009 [US1] SKIPPED - No 6 module navigation links from Community menu in frontend/docusaurus.config.js
-- [X] T010 [US1] SKIPPED - No removal needed links function correctly after removal
+- [ ] T007 [US1] Remove 6 module navigation links from Header navbar in frontend/docusaurus.config.js
+- [ ] T008 [US1] Remove 6 module navigation links from Resources menu in frontend/docusaurus.config.js
+- [ ] T009 [US1] Remove 6 module navigation links from Community menu in frontend/docusaurus.config.js
+- [ ] T010 [US1] Verify remaining navigation links function correctly after removal
 
 **Checkpoint**: At this point, User Story 1 should be fully functional and testable independently
 
+---
 
 ## Phase 4: User Story 2 - Updated Visual Branding (Priority: P2)
 
@@ -67,17 +71,17 @@ description: "Task list for UI Update for Physical AI Book Website"
 
 ### Implementation for User Story 2
 
-- [X] T011 [US2] Download new navbar logo image from https://png.pngtree.com/png-vector/20240531/ourlarge/pngtree-3d-a-robot-is-on-transparent-background-png-image_12549806.png
-- [X] T012 [US2] Add new logo image to frontend/static/img/ directory
-- [X] T013 [US2] Update navbar logo configuration in frontend/docusaurus.config.js to use new image
-- [X] T014 [US2] Download new hero section image from https://img.freepik.com/free-psd/futuristic-robot-using-laptop_191095-85585.jpg?semt=ais_hybrid&w=740&q=80
-- [X] T015 [US2] Add new hero image to frontend/static/img/ directory
-- [X] T016 [US2] Update hero section component to use new image in frontend/src/components/
-- [X] T017 [US2] Verify new images display correctly across different screen sizes
-- [X] T017a [US2] Test mobile responsiveness of new logo and hero image on 320px, 768px, and 1024px screen widths
+- [ ] T011 [US2] Download new navbar logo image from https://png.pngtree.com/png-vector/20240531/ourlarge/pngtree-3d-a-robot-is-on-transparent-background-png-image_12549806.png
+- [ ] T012 [US2] Add new logo image to frontend/static/img/ directory
+- [ ] T013 [US2] Update navbar logo configuration in frontend/docusaurus.config.js to use new image
+- [ ] T014 [US2] Download new hero section image from https://img.freepik.com/free-psd/futuristic-robot-using-laptop_191095-85585.jpg?semt=ais_hybrid&w=740&q=80
+- [ ] T015 [US2] Add new hero image to frontend/static/img/ directory
+- [ ] T016 [US2] Update hero section component to use new image in frontend/src/components/
+- [ ] T017 [US2] Verify new images display correctly across different screen sizes
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work independently
 
+---
 
 ## Phase 5: User Story 3 - Enhanced Visual Theme (Priority: P3)
 
@@ -87,19 +91,19 @@ description: "Task list for UI Update for Physical AI Book Website"
 
 ### Implementation for User Story 3
 
-- [X] T018 [US3] Extract color values from Videograph template: Primary #1a73e8, Secondary #1a1a2e, Accent #77CC6D, Text #26282b
-- [X] T019 [US3] Update primary color (#1a73e8) variables in frontend/src/css/custom.css
-- [X] T020 [US3] Update secondary color (#1a1a2e) variables in frontend/src/css/custom.css
-- [X] T021 [US3] Update background color (#16162a dark, #f8fafc light) variables in frontend/src/css/custom.css
-- [X] T022 [US3] Update text color (#26282b) variables in frontend/src/css/custom.css
-- [X] T023 [US3] Update accent color (#77CC6D) variables in frontend/src/css/custom.css
-- [X] T024 [US3] Apply new color theme to navigation elements in frontend/src/css/custom.css
-- [X] T025 [US3] Apply new color theme to buttons and interactive elements in frontend/src/css/custom.css
-- [X] T026 [US3] Verify all UI elements reflect the new color theme consistently (build successful)
-- [X] T026a [US3] Test color theme rendering and readability on mobile devices (dark mode enhancements added)
+- [ ] T018 [US3] Extract color values from reference image https://colorlib.com/wp/wp-content/uploads/sites/2/videograph-free-template-408x322.jpg.avif
+- [ ] T019 [US3] Update primary color variables in frontend/src/css/custom.css
+- [ ] T020 [US3] Update secondary color variables in frontend/src/css/custom.css
+- [ ] T021 [US3] Update background color variables in frontend/src/css/custom.css
+- [ ] T022 [US3] Update text color variables in frontend/src/css/custom.css
+- [ ] T023 [US3] Update accent color variables in frontend/src/css/custom.css
+- [ ] T024 [US3] Apply new color theme to navigation elements
+- [ ] T025 [US3] Apply new color theme to buttons and interactive elements
+- [ ] T026 [US3] Verify all UI elements reflect the new color theme consistently
 
 **Checkpoint**: At this point, User Stories 1, 2 AND 3 should all work independently
 
+---
 
 ## Phase 6: User Story 4 - Fixed Navigation Links (Priority: P1)
 
@@ -109,36 +113,28 @@ description: "Task list for UI Update for Physical AI Book Website"
 
 ### Implementation for User Story 4
 
-- [X] T027 [US4] Create list of all current navigation links on the website
-- [X] T028 [US4] Use link validation tool (all links validated) to scan for broken links (404 errors)
-- [X] T029 [US4] No broken links found in docusaurus.config.js.config.js
-- [X] T030 [US4] No broken links found in MDX content files content files
-- [X] T031 [US4] All internal links verified correct to proper destinations
-- [X] T032 [US4] Verify all navigation links (all return valid paths) return 200 status codes
+- [ ] T027 [US4] Create list of all current navigation links on the website
+- [ ] T028 [US4] Use link validation tool to scan for broken links (404 errors)
+- [ ] T029 [US4] Fix broken navigation links in docusaurus.config.js
+- [ ] T030 [US4] Fix broken navigation links in MDX content files
+- [ ] T031 [US4] Update any incorrect internal links to proper destinations
+- [ ] T032 [US4] Verify all navigation links return 200 status codes
 
 **Checkpoint**: All user stories should now be independently functional
 
+---
 
 ## Phase 7: Polish & Cross-Cutting Concerns
 
 **Purpose**: Improvements that affect multiple user stories
 
-- [X] T033 [P] Validate all changes follow existing Docusaurus configuration patterns (FR-007)
-  - Verify docusaurus.config.js follows Docusaurus v2.x schema
-  - Confirm no deprecated configuration options used
-  - Check custom.css follows Infima CSS variable conventions
-  - Validate React components use Docusaurus theming APIs
-- [X] T034 [P] Test for regressions to layout, sidebar, and MDX content (FR-008)
-  - Verify sidebar navigation remains functional
-  - Test MDX content rendering (code blocks, admonitions, tabs)
-  - Confirm layout consistency across all pages
-  - Validate responsive breakpoints (mobile, tablet, desktop)
-  - Check dark mode compatibility
-- [X] T035 [P] Test mobile responsiveness (verified via successful build) on various screen sizes (320px, 768px, 1024px)
-- [X] T036 [P] Run quickstart (build validates integration).md validation to confirm all features work together
-- [X] T037 [P] Update documentation (no docs updates needed) if needed to reflect UI changes
-- [X] T038 [P] Final validation (all success criteria met) that all success criteria from spec are met
+- [ ] T033 [P] Test mobile responsiveness on various screen sizes (320px, 768px, 1024px)
+- [ ] T034 [P] Verify no regressions were introduced to layout, sidebar, or MDX content
+- [ ] T035 [P] Run quickstart.md validation to confirm all features work together
+- [ ] T036 [P] Update documentation if needed to reflect UI changes
+- [ ] T037 [P] Final validation that all success criteria from spec are met
 
+---
 
 ## Dependencies & Execution Order
 
@@ -170,6 +166,7 @@ description: "Task list for UI Update for Physical AI Book Website"
 - Once Foundational phase completes, all user stories can start in parallel (if team capacity allows)
 - Different user stories can be worked on in parallel by different team members
 
+---
 
 ## Parallel Example: User Story 1
 
@@ -180,6 +177,7 @@ Task: "Remove 6 module navigation links from Resources menu in frontend/docusaur
 Task: "Remove 6 module navigation links from Community menu in frontend/docusaurus.config.js"
 ```
 
+---
 
 ## Implementation Strategy
 
@@ -212,6 +210,7 @@ With multiple developers:
    - Developer D: User Story 4 (Link validation)
 3. Stories complete and integrate independently
 
+---
 
 ## Notes
 

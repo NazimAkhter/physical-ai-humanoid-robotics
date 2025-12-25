@@ -10,7 +10,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 const config = {
   title: 'Physical AI & Humanoid Robotics Education',
   tagline: 'Learn Robotics, AI, and Humanoid Systems',
-  favicon: 'img/logos/robot-logo.png',
+  favicon: 'img/icons/favicon.ico',
 
   // Set the production url of your site here
   url: 'https://hackathon-01-humanoid-book.vercel.app',
@@ -74,8 +74,8 @@ const config = {
         title: 'Physical AI Education',
         logo: {
           alt: 'Physical AI & Humanoid Robotics Logo',
-          src: 'img/logos/robot-logo.png',
-          srcDark: 'img/logos/robot-logo.png',
+          src: 'img/logos/logo.svg',
+          srcDark: 'img/logos/logo-dark.svg',
         },
         items: [
           {
@@ -85,14 +85,34 @@ const config = {
             label: 'Curriculum',
           },
           {
+            to: 'docs/modules/ros2-nervous-system',
+            label: 'Module 1: ROS 2',
+            position: 'left'
+          },
+          {
+            to: 'docs/modules/gazebo-unity-digital-twin',
+            label: 'Module 2: Digital Twin',
+            position: 'left'
+          },
+          {
+            to: 'docs/modules/isaac-ai-brain',
+            label: 'Module 3: Isaac AI',
+            position: 'left'
+          },
+          {
+            to: 'docs/modules/vla-integration',
+            label: 'Module 4: VLA Integration',
+            position: 'left'
+          },
+          {
             type: 'dropdown',
             label: 'Resources',
             position: 'left',
             items: [
-              { label: 'Documentation', to: '/docs/project/introduction' },
+              { label: 'Documentation', to: '/docs/intro' },
               { label: 'Project Setup', to: '/docs/project/setup' },
               { label: 'Development Guide', to: '/docs/project/development' },
-              { label: 'Examples', to: '/docs/project' },
+              { label: 'Examples', to: '/docs/examples' },
             ]
           },
           {
@@ -123,13 +143,17 @@ const config = {
           {
             title: 'Learn',
             items: [
-              { label: 'Getting Started', to: '/docs/project/introduction' },
+              { label: 'Getting Started', to: '/docs/intro' },
+              { label: 'Module 1: ROS 2', to: 'docs/modules/ros2-nervous-system' },
+              { label: 'Module 2: Digital Twin', to: 'docs/modules/gazebo-unity-digital-twin' },
+              { label: 'Module 3: Isaac AI', to: 'docs/modules/isaac-ai-brain' },
+              { label: 'Module 4: VLA', to: 'docs/modules/vla-integration' },
             ]
           },
           {
             title: 'Resources',
             items: [
-              { label: 'Documentation', to: '/docs/project/introduction' },
+              { label: 'Documentation', to: '/docs/intro' },
               { label: 'Project Setup', to: '/docs/project/setup' },
               { label: 'Development Guide', to: '/docs/project/development' },
               { label: 'Deployment', to: '/docs/project/deployment' },
@@ -155,6 +179,7 @@ const config = {
           {
             title: 'More',
             items: [
+              { label: 'About This Project', to: '/about' },
               {
                 label: 'License',
                 href: 'https://github.com/NazimAkhter/hackathon_01_humanoid_book/blob/master/LICENSE'

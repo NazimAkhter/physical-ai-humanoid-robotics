@@ -122,10 +122,10 @@ A visitor to the Physical AI Book website needs all navigation links to work cor
 
 ### Measurable Outcomes
 
-- **SC-001**: All 6 module navigation links are successfully removed from Header navbar, Resources, and Community menus **[Metric: navbar item count reduced by 6, verified via visual inspection and config review]**
-- **SC-002**: Navbar logo is successfully replaced with the specified image and displays correctly across all devices **[Metric: Logo loads with 200 status, displays at correct size (max-height: 40px), no distortion on screens 320px-1920px wide]**
-- **SC-003**: Hero section image is successfully updated to the specified image and displays correctly across all devices **[Metric: Hero image loads with 200 status, maintains aspect ratio, responsive on all breakpoints]**
-- **SC-004**: Color theme is updated to match the reference image with all UI elements properly themed **[Metric: 100% of UI elements use colors from documented palette, visual comparison with reference passes]**
-- **SC-005**: All navigation links across the site return 200 status codes with no 404 errors detected **[Metric: Automated link checker reports 0 broken links, all hrefs return 200 status]**
-- **SC-006**: Mobile responsiveness is maintained with no layout issues on screen sizes down to 320px width **[Metric: Layout passes visual regression test at 320px, 768px, 1024px, 1920px widths]**
-- **SC-007**: No regressions are introduced to existing layout, sidebar functionality, or MDX content rendering **[Metric: All existing pages render correctly, sidebar navigation functional, MDX components (code blocks, tabs, admonitions) display properly]**
+- **SC-001**: All 6 module navigation links are successfully removed from Header navbar, Resources, and Community menus
+- **SC-002**: Navbar logo is successfully replaced with the specified image and displays correctly across all devices
+- **SC-003**: Hero section image is successfully updated to the specified image and displays correctly across all devices
+- **SC-004**: Color theme is updated to match the reference image with all UI elements properly themed
+- **SC-005**: All navigation links across the site return 200 status codes with no 404 errors detected
+- **SC-006**: Mobile responsiveness is maintained with no layout issues on screen sizes down to 320px width
+- **SC-007**: No regressions are introduced to existing layout, sidebar functionality, or MDX content rendering
