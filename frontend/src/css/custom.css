@@ -6,24 +6,27 @@
  */
 
 /* You can override the default Infima variables here. */
+/* Color theme based on Colorlib Videograph template reference */
 :root {
-  --ifm-color-primary: #2563eb;
-  --ifm-color-primary-dark: #1d4ed8;
-  --ifm-color-primary-darker: #1e40af;
-  --ifm-color-primary-darkest: #1e3a8a;
-  --ifm-color-primary-light: #3b82f6;
-  --ifm-color-primary-lighter: #60a5fa;
-  --ifm-color-primary-lightest: #93c5fd;
+  --ifm-color-primary: #1a73e8;
+  --ifm-color-primary-dark: #1464cc;
+  --ifm-color-primary-darker: #1158b3;
+  --ifm-color-primary-darkest: #0d4a99;
+  --ifm-color-primary-light: #3d8aec;
+  --ifm-color-primary-lighter: #5a9def;
+  --ifm-color-primary-lightest: #8fbbf5;
   --ifm-code-font-size: 95%;
 }
 
 /* Custom colors for Physical AI & Humanoid Robotics platform */
+/* Based on Colorlib Videograph template dark theme */
 :root {
-  --physical-ai-primary: #2563eb;      /* Blue from reference theme */
-  --physical-ai-secondary: #1e293b;    /* Dark blue-gray background */
-  --physical-ai-accent: #f97316;       /* Orange accent from reference */
-  --physical-ai-light: #f8fafc;        /* Light gray background */
-  --physical-ai-dark: #0f172a;         /* Very dark blue-gray */
+  --physical-ai-primary: #1a73e8;      /* Blue from Videograph reference */
+  --physical-ai-secondary: #1a1a2e;    /* Dark background from Videograph */
+  --physical-ai-accent: #77CC6D;       /* Green accent from Videograph */
+  --physical-ai-light: #f8fafc;        /* Light gray for text/backgrounds */
+  --physical-ai-dark: #16162a;         /* Very dark blue-gray */
+  --physical-ai-text: #26282b;         /* Body text color */
 }
 
 /* Header and navigation styling */
@@ -240,3 +243,63 @@ html[data-theme='dark'] .docusaurus-highlight-code-line {
   margin: 0;
   padding: 1rem;
 }
+
+/* Button styling based on Videograph theme */
+.button--primary {
+  background-color: var(--physical-ai-primary);
+  border-color: var(--physical-ai-primary);
+}
+
+.button--primary:hover {
+  background-color: var(--ifm-color-primary-dark);
+  border-color: var(--ifm-color-primary-dark);
+}
+
+.button--secondary {
+  background-color: var(--physical-ai-accent);
+  border-color: var(--physical-ai-accent);
+  color: white;
+}
+
+.button--secondary:hover {
+  background-color: #5fb357;
+  border-color: #5fb357;
+}
+
+/* Dark mode enhancements */
+html[data-theme='dark'] {
+  --physical-ai-light: #e2e8f0;
+  --physical-ai-text: #f1f5f9;
+}
+
+html[data-theme='dark'] .navbar {
+  background-color: var(--physical-ai-dark);
+}
+
+html[data-theme='dark'] .footer {
+  background-color: #0f0f1a;
+}
+
+html[data-theme='dark'] .curriculum-card {
+  border-color: #374151;
+  background-color: var(--physical-ai-secondary);
+}
+
+html[data-theme='dark'] .module-intro {
+  background-color: var(--physical-ai-secondary);
+}
+
+html[data-theme='dark'] .module-intro h1 {
+  color: var(--physical-ai-light);
+}
+
+html[data-theme='dark'] .api-endpoint {
+  background-color: var(--physical-ai-secondary);
+}
+
+html[data-theme='dark'] .learning-objectives {
+  background-color: rgba(26, 115, 232, 0.1);
+}
+
+/* Chatbot Theme */
+@import './chatbot-theme.css';

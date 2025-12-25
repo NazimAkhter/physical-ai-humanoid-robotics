@@ -10,7 +10,7 @@ import {themes as prismThemes} from 'prism-react-renderer';
 const config = {
   title: 'Physical AI & Humanoid Robotics Education',
   tagline: 'Learn Robotics, AI, and Humanoid Systems',
-  favicon: 'img/logos/robot-logo.png',
+  favicon: 'img/icons/favicon.ico',
 
   // Set the production url of your site here
   url: 'https://hackathon-01-humanoid-book.vercel.app',
