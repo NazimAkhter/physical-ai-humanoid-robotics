@@ -13,7 +13,7 @@ const config = {
   favicon: 'img/logos/robot-logo.png',
 
   // Set the production url of your site here
-  url: 'https://hackathon-01-humanoid-book.vercel.app',
+  url: 'https://physical-ai-humanoid-robotics-iota-nine.vercel.app',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For Vercel deployment, use root path
   baseUrl: '/',
