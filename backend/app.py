@@ -12,6 +12,11 @@ import os
 import sys
 import logging
 from datetime import datetime
+from dotenv import load_dotenv
+
+# Load environment variables from .env file (for local development)
+# In production (HF Spaces), env vars are provided by the platform
+load_dotenv()
 
 # Configure production logging (stdout for HF Spaces)
 logging.basicConfig(
@@ -24,12 +29,16 @@ logger = logging.getLogger(__name__)
 # Validate required environment variables at startup
 REQUIRED_ENV_VARS = [
     "COHERE_API_KEY",
-    "OPENAI_API_KEY",
     "QDRANT_URL",
     "QDRANT_API_KEY"
 ]
 
 missing_vars = [var for var in REQUIRED_ENV_VARS if not os.getenv(var)]
+
+# Check for at least one AI API key (OPENAI_API_KEY or GROQ_API_KEY)
+if not os.getenv("OPENAI_API_KEY") and not os.getenv("GROQ_API_KEY"):
+    missing_vars.append("OPENAI_API_KEY or GROQ_API_KEY")
+
 if missing_vars:
     logger.error(f"Missing required environment variables: {', '.join(missing_vars)}")
     logger.error("Please configure these secrets in Hugging Face Spaces settings")
