@@ -1,5 +1,5 @@
 import React, { createContext, useReducer, useEffect, useCallback } from 'react';
-import { sendMessage as sendMessageAPI } from '../../services/mockChatbotAPI';
+import { sendMessage as sendMessageAPI } from '../../services/chatbotAPI';
 
 export const ChatbotContext = createContext(null);
 
