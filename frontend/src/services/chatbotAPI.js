@@ -4,7 +4,7 @@
  */
 
 // Use hardcoded URL for now - works in both dev and production
-const API_BASE_URL = 'http://127.0.0.1:3001';
+const API_BASE_URL = 'https://nazimbotexpert-rag-backend.hf.space';
 
 /**
  * Send a message to the chatbot backend
