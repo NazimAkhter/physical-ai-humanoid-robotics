@@ -217,3 +217,12 @@ See `.specify/memory/constitution.md` for code quality, testing, performance, se
 ## Active Technologies
 - JavaScript/TypeScript (ES2020+), React 18.x (already in Docusaurus) (005-embedded-chatbot)
 - Browser sessionStorage for conversation state (in-memory during page session); no persistent storage required (005-embedded-chatbot)
+- Python 3.11+ (006-rag-pipeline)
+- Qdrant Cloud Free Tier (vector database) (006-rag-pipeline)
+- Qdrant Cloud (existing collection `physical_ai_book` from Spec 006 with 231 embedded chunks) (007-rag-retrieval)
+- Python 3.11+ + `openai-agents` (new), `fastapi`, `uvicorn`, `qdrant-client`, `cohere` (existing) (008-openai-agent-rag)
+- In-memory dictionary for conversation sessions (no persistent storage for MVP) (008-openai-agent-rag)
+- Python 3.11+ + FastAPI 0.104+, Uvicorn 0.24+, Pydantic (built-in with FastAPI) (009-fastapi-backend)
+- N/A (stateless API, uses existing Qdrant via agent.py) (009-fastapi-backend)
+- Python 3.11+ (existing backend), Python 3.10+ (Hugging Face Spaces Docker requirement) + FastAPI 0.104+, Uvicorn 0.24+, OpenAI SDK (openai-agents 0.0.7), Cohere 5.0+, Qdrant-client 1.7+, Python-dotenv 1.0+ (010-hf-spaces-deployment)
+- N/A (stateless API - uses external Qdrant Cloud for vector storage, in-memory for conversation sessions) (010-hf-spaces-deployment)
