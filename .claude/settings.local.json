@@ -14,7 +14,9 @@
       "Bash(.specify/scripts/bash/update-agent-context.sh:*)",
       "Bash(.specify/scripts/bash/create-phr.sh:*)",
       "Bash(npx docusaurus:*)",
-      "Bash(mkdir:*)"
+      "Bash(mkdir:*)",
+      "WebSearch",
+      "Bash(git --version)"
     ],
     "deny": [],
     "ask": []
