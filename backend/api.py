@@ -94,6 +94,7 @@ ALLOWED_ORIGINS = [
     "http://127.0.0.1:3000",
     "http://127.0.0.1:5173",
     "http://127.0.0.1:8080",
+    "https://physical-ai-humanoid-robotics-iota-nine.vercel.app",  # Production frontend
 ]
 
 # Add production frontend URL from environment
@@ -109,6 +110,89 @@ app.add_middleware(
     allow_headers=["Content-Type", "Authorization"],
     max_age=600,
 )
+
+
+# ============================================================================
+# Global Exception Handler
+# ============================================================================
+
+from fastapi import Request
+from fastapi.responses import JSONResponse
+
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    """
+    Global exception handler for unhandled errors.
+
+    Catches any exceptions that escape endpoint handlers and returns
+    user-friendly error messages while logging full details for debugging.
+
+    Feature: 010-hf-spaces-deployment (T023)
+    """
+    logger.error(
+        f"Unhandled exception in {request.method} {request.url.path}: {str(exc)}",
+        exc_info=True
+    )
+
+    return JSONResponse(
+        status_code=500,
+        content={"detail": "An unexpected error occurred, please contact support"}
+    )
+
+
+# ============================================================================
+# Error Handling Utilities
+# ============================================================================
+
+def handle_service_error(e: Exception, service_name: str) -> HTTPException:
+    """
+    Convert service exceptions to user-friendly HTTP exceptions.
+
+    Maps external service errors (Cohere, OpenAI, Qdrant) to appropriate
+    HTTP status codes with user-friendly messages.
+
+    Feature: 010-hf-spaces-deployment (T019)
+    """
+    error_msg = str(e).lower()
+
+    # Log full error for debugging
+    logger.error(f"{service_name} error: {str(e)}", exc_info=True)
+
+    # Rate limit errors
+    if '429' in str(e) or 'rate limit' in error_msg:
+        return HTTPException(
+            status_code=429,
+            detail="Service is experiencing high demand, please try again in a moment"
+        )
+
+    # Authentication errors
+    if 'api key' in error_msg or 'authentication' in error_msg or 'unauthorized' in error_msg:
+        return HTTPException(
+            status_code=503,
+            detail="Configuration error, please contact support"
+        )
+
+    # Timeout/connection errors
+    if 'timeout' in error_msg or 'connection' in error_msg:
+        if service_name.lower() == 'cohere':
+            message = "Embedding service temporarily unavailable, please try again"
+        elif service_name.lower() in ['openai', 'groq']:
+            message = "AI service temporarily unavailable, please try again"
+        elif service_name.lower() == 'qdrant':
+            message = "Vector database temporarily unavailable, please try again"
+        else:
+            message = f"{service_name} temporarily unavailable, please try again"
+
+        return HTTPException(
+            status_code=503,
+            detail=message
+        )
+
+    # Default: Service unavailable
+    return HTTPException(
+        status_code=503,
+        detail=f"{service_name} temporarily unavailable, please try again"
+    )
 
 
 # ============================================================================
@@ -257,10 +341,20 @@ async def chat(request: ChatRequest):
         if not result.get('success', False):
             error_msg = result.get('error', 'Unknown error')
             logger.error(f"Agent query failed: {error_msg}")
-            raise HTTPException(
-                status_code=500,
-                detail={"detail": "An error occurred processing your request", "error_code": "INTERNAL_ERROR"}
-            )
+
+            # Check if error is from external services (T020, T021, T022)
+            error_lower = error_msg.lower()
+            if 'cohere' in error_lower:
+                raise handle_service_error(Exception(error_msg), 'Cohere')
+            elif 'openai' in error_lower or 'groq' in error_lower:
+                raise handle_service_error(Exception(error_msg), 'OpenAI')
+            elif 'qdrant' in error_lower:
+                raise handle_service_error(Exception(error_msg), 'Qdrant')
+            else:
+                raise HTTPException(
+                    status_code=500,
+                    detail="An unexpected error occurred, please contact support"
+                )
 
         # Map response to ChatResponse
         sources = [
@@ -283,15 +377,31 @@ async def chat(request: ChatRequest):
         logger.error("Agent query timed out after 30 seconds")
         raise HTTPException(
             status_code=503,
-            detail={"detail": "Request timed out. Please try again.", "error_code": "AGENT_TIMEOUT"}
+            detail="Request timed out. Please try again."
         )
     except HTTPException:
         raise
+    except RuntimeError as e:
+        # RuntimeError from retrieve.py (Cohere/Qdrant errors)
+        error_msg = str(e).lower()
+        if 'cohere' in error_msg or 'embedding' in error_msg:
+            raise handle_service_error(e, 'Cohere')
+        elif 'qdrant' in error_msg:
+            raise handle_service_error(e, 'Qdrant')
+        else:
+            logger.error(f"Runtime error in chat endpoint: {e}", exc_info=True)
+            raise HTTPException(
+                status_code=500,
+                detail="An unexpected error occurred, please contact support"
+            )
+    except ConnectionError as e:
+        # ConnectionError from retrieve.py (Qdrant connection)
+        raise handle_service_error(e, 'Qdrant')
     except Exception as e:
-        logger.error(f"Unexpected error in chat endpoint: {e}")
+        logger.error(f"Unexpected error in chat endpoint: {e}", exc_info=True)
         raise HTTPException(
             status_code=500,
-            detail={"detail": "An unexpected error occurred", "error_code": "INTERNAL_ERROR"}
+            detail="An unexpected error occurred, please contact support"
         )
 
 

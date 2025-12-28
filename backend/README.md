@@ -1,16 +1,35 @@
-# RAG Content Pipeline
+---
+title: Physical AI Chatbot Backend
+emoji: 🤖
+colorFrom: blue
+colorTo: purple
+sdk: docker
+app_port: 7860
+pinned: false
+---
 
-Automated pipeline for ingesting content from the Physical AI & Humanoid Robotics book website into a vector database for RAG (Retrieval Augmented Generation) chatbot functionality.
+# Physical AI Chatbot Backend
+
+Production FastAPI backend for the Physical AI & Humanoid Robotics curriculum RAG chatbot.
+
+This backend provides RAG-powered question-answering using Qdrant vector search and OpenAI Agents for intelligent responses.
 
 ## Features
 
-- **Automated Scraping**: Fetches all pages from sitemap.xml
-- **Smart Chunking**: Splits content into 512-token chunks with 50-token overlap
-- **Vector Embeddings**: Generates 1024-dimensional embeddings using Cohere API
-- **Vector Storage**: Stores embeddings in Qdrant Cloud with full metadata
-- **Incremental Updates**: Detects changed content and skips unchanged pages
-- **Error Recovery**: Automatic retry with exponential backoff for transient failures
-- **Comprehensive Logging**: Detailed error tracking and performance metrics
+- **RAG-Powered Q&A**: Retrieves relevant content from Qdrant vector database for context-aware responses
+- **OpenAI Agents**: Intelligent agent-based responses using GPT-4 via Groq/OpenAI
+- **Real-Time Streaming**: Fast response generation with source citations
+- **Production Error Handling**: Graceful handling of external service failures (Cohere, OpenAI, Qdrant)
+- **Health Monitoring**: /health endpoint with service connectivity status
+- **CORS Support**: Configured for public frontend access from Vercel
+- **Production Logging**: Structured logging to stdout for Hugging Face Spaces visibility
+- **Environment Security**: All API keys managed via HF Spaces secrets
+
+## Deployment
+
+This backend is designed for deployment on **Hugging Face Spaces** using Docker SDK.
+
+For complete deployment instructions, troubleshooting, and monitoring setup, see **[deployment.md](./deployment.md)**.
 
 ## Prerequisites
 

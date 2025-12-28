@@ -1,0 +1,45 @@
+# Virtual environments
+.venv/
+venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Environment files (secrets should be in HF Spaces settings)
+.env
+.env.local
+
+# Development files
+.git/
+.gitignore
+*.md
+!README.md
+!deployment.md
+
+# Testing
+tests/
+.pytest_cache/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# Build artifacts
+dist/
+build/
+*.egg-info/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# UV lock file (use requirements.txt in Docker)
+uv.lock
+pyproject.toml
